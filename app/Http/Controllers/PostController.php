@@ -32,6 +32,12 @@ class PostController extends BaseController
     {
         $thread = Thread::open()->find($args['id']);
 
+        if (!$thread) {
+            $this->flash->addMessage('alert', ['error', 'Error', 'You cannot post to a closed thread.']);
+
+            return $response->withHeader('Location', $request->getHeader('HTTP_REFERER'));
+        }
+
         $post = Post::create([
             'thread_id' => $thread->id,
             'body' => $request->getParam('body'),

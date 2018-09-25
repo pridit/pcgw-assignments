@@ -11,7 +11,7 @@
 
         <span class="title">{{ (thread.is_pinned ? 'Pinned: ' : thread.is_closed ? 'Closed: ' : '') ~ thread.title }}</span>
 
-        {% if not thread.is_closed or session is not null %}
+        {% if not thread.is_closed %}
             <a href="{{ path_for('posts.create', {id: thread.id, slug: thread.slug}) }}">
                 <button class="action">Reply</button>
             </a>
