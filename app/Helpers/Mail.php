@@ -21,7 +21,6 @@ class Mail
         $message = (new \Swift_Message($data['subject']))
             ->setFrom([$this->config->get('mail.from.address') => $this->config->get('mail.from.name')])
             ->setTo($data['to'])
-            ->setBcc($this->config->get('mailer.bcc'))
             ->setBody($data['message'], 'text/html');
 
         return $mailer->send($message);
