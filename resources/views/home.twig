@@ -2,8 +2,6 @@
 
 {% block content %}
 <div class="container-fluid">
-    {{ flash['global'][0] }}
-
     {% if notice.home %}
         {% include 'components/notice.twig' with {text: notice.home} %}
     {% endif %}

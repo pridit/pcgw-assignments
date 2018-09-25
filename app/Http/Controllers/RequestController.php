@@ -14,7 +14,6 @@ class RequestController extends BaseController
     public function create(Request $request, Response $response, $args)
     {
         $this->flash->addMessage('request', true);
-        $this->flash->addMessage('global', 'hello');
 
         return $response->withHeader('Location', $this->router->pathFor('home'));
     }
