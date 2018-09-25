@@ -1,0 +1,26 @@
+{% if items is not empty %}
+    {% include 'components/pagination/components/index.twig' %}
+
+    {% if items.lastPage > 1 %}
+        {% if items.currentPage > 2 %}
+            <a href="{{ page }}?page={{ items.currentPage - 1}}">
+                <button class="bar-button">&#171;</button>
+            </a>
+        {% endif %}
+
+        {% for i in (items.currentPage - 1)..(items.currentPage + 1) %}
+            {% if (i > 0) and (i <= items.lastPage) %}
+                {% set active = items.currentPage == i %}
+                <a href="{{ not active ? page ~ '?page=' ~ i : '#' }}">
+                    <button class="bar-button{{ active ? ' active' : '' }}">{{ i }}</button>
+                </a>
+            {% endif %}
+        {% endfor %}
+
+        {% if (items.currentPage <= (items.lastPage - 2)) %}
+            <a href="{{ page }}?page={{ items.currentPage + 1}}">
+                <button class="bar-button">&#187;</button>
+            </a>
+        {% endif %}
+    {% endif %}
+{% endif %}

@@ -1,0 +1,29 @@
+{
+  "name": "pcgw-assignments",
+  "version": "1.0.0",
+  "description": "[PCGW Assignments](https://assignments.pcgamingwiki.com) is a CMS platform for PC video game assignments, as well as handling allocation and facilitating the process of applying for assignments by end-users.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-image": "^4.3.0",
+    "gulp-minify": "^3.1.0",
+    "gulp-order": "^1.1.1",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "node-sass": "^4.9.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/Pridit/pcgw-assignments.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/Pridit/pcgw-assignments#readme"
+}

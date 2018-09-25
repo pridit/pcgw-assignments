@@ -1,0 +1,20 @@
+.well {
+    border: 1px solid #CCC;
+	box-shadow: 0px 0px 0px;
+	border-radius: 0;
+    margin-bottom: 35px;
+	background-color: #DDD;
+
+    p {
+        margin: 0;
+    }
+}
+
+.well-sm {
+    padding-top: 54px;
+    margin-bottom: 20px;
+}
+
+.well-expanded {
+    padding: 29px !important;
+}

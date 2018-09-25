@@ -1,0 +1,5 @@
+<form action="{{ path_for('admin.assignments.complete', {id: assignment.id}) }}" method="post">
+    <input type="hidden" name="_METHOD" value="patch"/>
+    {{ csrf_fields|raw }}
+    <button class="icon{% if not assignment.standard %} fade{% endif %}" title="Article standard has been achieved through revisions made by assignee(s)"><i class="fa fa-{{ assignment.standard ? 'check' : 'times' }}"></i></button>
+</form>

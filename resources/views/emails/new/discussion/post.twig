@@ -1,0 +1,23 @@
+{% extends 'templates/emails/base.twig' %}
+
+{% block content %}
+<td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">A new post has been created in: <strong>{{ post.thread.title }}</strong> by {{ post.author }}.</p>
+    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #EEE; border: 1px solid dotted #EEE; padding: 0px 10px 0px 10px; margin-bottom: 20px;">
+        <tr>
+            <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: justify; width: 100%;">
+                {{ post.body }}
+            </td>
+        </tr>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box; text-align: center">
+        <tbody>
+            <tr>
+                <td align="center" style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;">
+                    {% include 'templates/emails/components/button.twig' with {'text': 'View thread', 'page': path_for('discussions.show', {id: post.thread.id, slug: post.thread.slug})} only %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</td>
+{% endblock %}

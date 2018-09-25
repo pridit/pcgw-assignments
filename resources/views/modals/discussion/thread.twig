@@ -1,0 +1,40 @@
+{% if flash.thread %}
+    <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div style="width: 330px;" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% include 'components/modals/title.twig' with {'title': 'New Discussion'} %}
+                </div>
+
+                <form class="form" action="{{ path_for('discussions.store') }}" method="post" autocomplete="off">
+                    <div class="modal-body">
+                        <label for="title" class="strong"><span class="required" title="This is required">*</span> Title</label>
+                        <input class="form-control" name="title" id="title" pattern=".{3,}" required title="3 characters minimum" autofocus required><br />
+
+                        <label for="body" class="strong"><span class="required" title="This is required">*</span> Message</label>
+                        <textarea class="form-control" name="body" pattern=".{3,}" required title="3 characters minimum"></textarea>
+
+                        {% if not session %}
+                            <br />
+                            <div class="g-recaptcha" data-sitekey="6LdnknAUAAAAALh8V99iVG7RpxOLuqVZUDbX_wX-" data-callback="enableBtn"></div>
+                        {% endif %}
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn submit" id="request" type="submit"{% if not session %} disabled="disabled"{% endif %}>Create</button>
+                    </div>
+
+                    {{ csrf_fields|raw }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#myModal').modal();
+
+        function enableBtn() {
+            $('button').removeAttr('disabled');
+        }
+    </script>
+{% endif %}

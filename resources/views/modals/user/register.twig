@@ -1,0 +1,83 @@
+{% if flash.register %}
+    <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div style="width: 340px;" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% include 'components/modals/title.twig' with {'title': 'Register'} %}
+                </div>
+
+                <form class="form" action="{{ path_for('users.store') }}" method="post" autocomplete="off">
+                    <div class="modal-body">
+                        <label for="first_name" class="strong">First Name</label>
+                        <input class="form-control" type="text" name="first_name" id="first_name" placeholder="John" required><br />
+
+                        <label for="last_name" class="strong">Last Name</label>
+                        <input class="form-control" type="text" name="last_name" id="last_name" placeholder="Smith" required><br />
+
+                        <label for="email" class="strong">Email Address</label>
+                        <input class="form-control email-target" type="email" name="email" id="email" placeholder="example@domain.com" required>
+                        <div style="color: red" id="email-feedback"></div><br />
+
+                        <label for="password" class="strong">Password</label>
+                        <input class="form-control" type="password" name="password" id="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" required>
+                        <div style="color: red" class="password-feedback"></div><br />
+
+                        <label for="password_confirm" class="strong">Confirm Password</label>
+                        <input class="form-control" type="password" name="password_confirm" id="password_confirm" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" required>
+                        <div style="color: red" class="password-feedback"></div>
+                    </div>
+
+                    <div class="modal-footer">
+                        {{ csrf_fields|raw }}
+                        <button id="register" class="btn submit" type="submit">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#myModal').modal();
+
+        $("#first_name").focus();
+
+        $('#password, #password_confirm').on('blur', function() {
+            var password = $('#password');
+            var confirm = $('#password_confirm');
+            var feedback = $('.password-feedback');
+            var submit = $('#register');
+
+            if(password.val() && confirm.val()) {
+                if(password.val() != confirm.val()) {
+                    feedback.text("Passwords do not match");
+                    submit.attr("disabled", true);
+                } else {
+                    feedback.text('');
+                    submit.removeAttr("disabled");
+                }
+            }
+        });
+
+        $('.email-target').on('blur', function() {
+            var target = $('.email-target');
+            var feedback = $('#email-feedback');
+            var submit = $('#register');
+
+            $.ajax({
+                url: 'v1/api/email/' + target.val(),
+                type: 'GET',
+                dataType: 'json',
+
+                success: function(data) {
+                    if(data.is_used === true) {
+                        feedback.text('Email address is already in use');
+                        submit.attr("disabled", true);
+                    } else {
+                        feedback.text('');
+                        submit.removeAttr("disabled");
+                    }
+                }
+            });
+        });
+    </script>
+{% endif %}

@@ -1,0 +1,27 @@
+{% if flash.mediawiki %}
+    <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div style="width: 350px" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% include 'components/modals/title.twig' with {'title': 'MediaWiki'} %}
+                </div>
+
+                <div class="modal-body text-center">
+                    <img width="200px" src="{{ path_for('home') }}images/logo.png" /><br /><br /><br />
+                    <p class="text-justify">To access this area you must be logged into your PCGamingWiki account in order for us to be able to authenticate you with MediaWiki.</p><br />
+                    <a href="#" data-dismiss="modal">I have logged in!</a><br />
+                </div>
+
+                <div class="modal-footer">
+                    <a href="{{ path.pcgw.login }}" target="_blank">
+                        <button class="btn submit" id="submit" name="submit" type="submit">Log into PCGamingWiki</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#myModal').modal();
+    </script>
+{% endif %}

@@ -1,0 +1,19 @@
+section {
+    &.criteria {
+        color: #333;
+        width: 100%;
+        display: block;
+        padding: 6px;
+        padding-left: 18px;
+        background-color: #DDD;
+        border-left: 1px solid #CCC;
+        border-right: 1px solid #CCC;
+        border-bottom: 1px solid #CCC;
+
+        span.unselectable:before {
+            content: "\f046";
+            margin-right: 10px;
+        	font-family: FontAwesome;
+        }
+    }
+}

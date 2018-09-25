@@ -1,0 +1,68 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %} - Applications{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="bar bar-header">
+        <span class="title">Applications</span>
+    </div>
+
+    {% include 'components/assignment.twig' %}
+
+    <table class="table table-padded-first">
+        <thead>
+            <tr>
+                <th width="18%">Applicant</th>
+                <th width="26%">Aspects</th>
+                <th width="26%">Standard</th>
+                <th width="12%" class="text-center">Applied</th>
+                <th class="pull-right"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in assignment.applications if assignment.applications is not empty %}
+                <tr {% if application.assign.created_at is not null %}class="picked"{% endif %}>
+                    <td height="80px">
+                        {% include 'components/applicant.twig' with {applicant: application.applicant} %}
+                    </td>
+                    <td class="ellipsis" style="padding-right: 40px">
+                        {{ application.answer_aspects }}
+                    </td>
+                    <td class="ellipsis">
+                        {{ application.answer_standard }}
+                    </td>
+                    <td class="text-center">
+                        <span id="applied" data-livestamp="{{ application.created_at }}"></span>
+                    </td>
+                    <td class="text-right">
+                        {% if application.assign.created_at is null %}
+                            <form class="actions" action="{{ path_for('admin.applications.destroy', {id: application.id}) }}" method="post">
+                                <input type="hidden" name="_METHOD" value="delete" />
+                                {{ csrf_fields|raw }}
+                                <button class="btn btn-sm red" type="submit">Delete</button>
+                            </form>
+
+                            <form class="actions" action="{{ path_for('admin.applications.assign', {id: application.id}) }}" method="post">
+                                {{ csrf_fields|raw }}
+                                <button class="btn btn-sm black" type="submit">Assign</button>
+                            </form>
+                        {% else %}
+                            <form class="actions" action="{{ path_for('admin.applications.unassign', {id: application.id}) }}" method="post">
+                                {{ csrf_fields|raw }}
+                                <button class="btn btn-sm black" type="submit">Unassign</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if assignment.applications is empty %}
+        <div style="margin-bottom:0" class="well well-expanded text-center">No applications have been submitted</div>
+    {% endif %}
+
+    <div class="bar bar-footer"></div>
+</div>
+{% endblock %}

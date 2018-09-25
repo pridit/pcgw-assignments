@@ -1,0 +1,16 @@
+{% if session %}
+    <form style="display: inline; float: left" action="{{ path_for('admin.assignments.open', {id: assignment.id}) }}" method="post">
+        <input type="hidden" name="_METHOD" value="patch"/>
+        {{ csrf_fields|raw }}
+        <input type="submit" class="fa {{ assignment.open ? 'unlock' : 'lock' }}" value="{{ assignment.open ? '&#xf13e;' : '&#xf023;' }}" />
+    </form>
+{% endif %}
+
+{% if assignment.url %}<a href="{{ assignment.url }}" target="_blank">{{ assignment.title|e }}</a>{% else %}{{ assignment.title|e }}{% endif %}
+
+{% if session %}
+    <form style="display: inline" action="{{ path_for('admin.assignments.edit', {id: assignment.id}) }}" method="get">
+        {{ csrf_fields|raw }}
+        <input type="submit" class="fa modify" value="&#xf14b;" />
+    </form>
+{% endif %}

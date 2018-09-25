@@ -1,0 +1,91 @@
+<div class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span style="font-size: 1.5em;" class="fa fa-bars"></span>
+            </button>
+        </div>
+
+        <div class="navbar-collapse collapse" role="navigation">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a href="{{ path_for('home') }}"{% if route == 'home' %} class="selected"{% endif %}>Assignments</a>
+                </li>
+                <li>
+                    <a href="{{ path_for('assigned.index') }}"{% if route == 'assigned.index' %} class="selected"{% endif %}>Assigned</a>
+                </li>
+                <li>
+                    <a href="{{ path_for('guidelines.index') }}"{% if route == 'guidelines.index' %} class="selected"{% endif %}>Guidelines</a>
+                </li>
+                <li>
+                    <a href="{{ path_for('discussions.index') }}"{% if route == 'discussions.index' %} class="selected"{% endif %}>Discussions</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if not session %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle-register" href="#" data-toggle="dropdown">Admin <span class="caret"></span></a>
+                        <div class="dropdown-menu">
+                            <form action="{{ path_for('users.token') }}" method="post" autocomplete="off">
+                                {% if flash.error %}
+                                    <label for="token"><i class="fa fa-exclamation-circle" title="{{ flash.error[0]['message'] }}"></i></label>
+                                {% else %}
+                                    <label for="token"><i class="fa fa-info-circle" title="Registration is only permitted for authorised members of staff with a valid token."></i></label>
+                                {% endif %}
+                                <input style="padding-right:30px" class="form-control" type="text" name="token" id="token" placeholder="Token" {% if flash.error %}value="{{ flash.error[0]['token'] }}"{% endif %}required>
+                                {{ csrf_fields|raw }}
+                                <input class="btn btn-primary" type="submit" name="verify" value="Verify">
+                            </form>
+                        </div>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle-login" href="#" data-toggle="dropdown">Log in <span class="caret"></span></a>
+                        <div class="dropdown-menu">
+                            <form action="{{ path_for('users.authenticate') }}" method="post">
+                                <input class="form-control" type="text" name="email" id="email" placeholder="Email Address" required>
+                                <input class="form-control" type="password" name="password" placeholder="Password" required>
+                                {{ csrf_fields|raw }}
+                                <input class="btn btn-primary" type="submit" name="login" value="Log in"><br />
+                            </form>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Manage <span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-links">
+                            <li>
+                                <a href="{{ path_for('admin.applicants.index') }}">Applicants <strong class="fa-stack-1x" style="text-align: right; padding-right: 20px;">{{ count.applicants ?: '' }}</strong></a>
+                            </li>
+                            <li>
+                                <a href="{{ path_for('admin.assignments.index') }}">Assignments <strong class="fa-stack-1x" style="text-align: right; padding-right: 20px;">{{ count.assignments ?: '' }}</strong></a>
+                            </li>
+                            <li>
+                                <a href="{{ path_for('admin.requests.index') }}">Requests <strong class="fa-stack-1x" style="text-align: right; padding-right: 20px;">{{ count.requests ?: '' }}</strong></a>
+                            </li>
+                            <li>
+                                <a href="{{ path_for('admin.users.index') }}">Users <strong class="fa-stack-1x" style="text-align: right; padding-right: 20px;">{{ count.users ?: '' }}</strong></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{ session.first_name|capitalize }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-links">
+                            <li><a href="{{ path_for('users.password.edit') }}">Change password</a></li>
+                            <li><a href="{{ path_for('users.settings.index') }}">Settings</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ path_for('users.logout') }}">Log out</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% if flash.error %}
+    <script>
+       $('.dropdown-toggle-register').dropdown("toggle")
+    </script>
+{% endif %}

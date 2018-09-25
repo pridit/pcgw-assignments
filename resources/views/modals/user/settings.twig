@@ -1,0 +1,39 @@
+{% if flash.settings %}
+    <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div style="width: 400px" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% include 'components/modals/title.twig' with {'title': 'Settings'} %}
+                </div>
+
+                <form class="form" action="{{ path_for('users.settings.update', {id: session.id}) }}" method="post" autocomplete="off">
+                    <div class="modal-body">
+                        <div class="row">
+                            {% for type in flash.settings[0].types %}
+                                <div class="col-md-6">
+                                    <span style="font-weight: bold">{{ type.name|capitalize }}</span>
+                                    {% for option in flash.settings[0].options if option.type_id == type.id %}
+                                        <div class="checkbox">
+                                            <input type="hidden" name="{{ option.key }}" value="0" />
+                                            <label><input type="checkbox" name="{{ option.key }}" value="1" {{ option.userSetting.first is not null and option.userSetting.enabled ? 'checked="checked"' : '' }} />{{ option.name }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="hidden" name="_METHOD" value="patch"/>
+                        {{ csrf_fields|raw }}
+                        <button class="btn submit" id="submit" name="submit" type="submit">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#myModal').modal();
+    </script>
+{% endif %}

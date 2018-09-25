@@ -1,0 +1,28 @@
+.unselectable {
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+}
+
+.strike {
+    color: #666;
+    text-decoration: line-through;
+}
+
+.ellipsis {
+	max-width: 1px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+}
+
+.ellipsis:hover, .ellipsis:active {
+	max-width: 0;
+	cursor: pointer;
+	white-space: normal;
+	text-align: justify;
+	overflow: auto;
+	text-overflow: none;
+	-o-text-overflow: none;
+}

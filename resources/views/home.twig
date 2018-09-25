@@ -1,0 +1,126 @@
+{% extends 'templates/default.twig' %}
+
+{% block content %}
+<div class="container-fluid">
+    {% if notice.home %}
+        {% include 'components/notice.twig' with {text: notice.home} %}
+    {% endif %}
+
+    <div class="bar bar-header">
+        <span class="title">Assignments</span>
+        {% if session %}
+            <a href="{{ path_for('admin.assignments.create') }}">
+                <button class="bar-button">New</button>
+            </a>
+        {% else %}
+            <a href="{{ path_for('requests.create') }}">
+                <button class="bar-button">Request</button>
+            </a>
+        {% endif %}
+    </div>
+
+    {% if assignments is not empty %}
+        <table class="table table-row table-highlight">
+            <thead>
+                <tr>
+                    <th width="21%"></th>
+                    <th width="12%">Required</th>
+                    <th width="50%">Name</th>
+                    <th width="15%">Expires</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for assignment in assignments %}
+                    {% if not session %}
+                        <tr {% if assignment.expire_at > "now"|date('Y-m-d') or assignment.expire_at is null %}onclick="window.document.location='{{ path_for('assignment.apply', {'id': assignment.id, 'assignment': assignment.slug }) }}'"{% else %} class="expired"{% endif %}>
+                    {% else %}
+                        <tr onclick="window.document.location='{{ path_for('admin.assignments.applications', {'id': assignment.id, 'assignment': assignment.slug }) }}'">
+                    {% endif %}
+                    <td>
+                        <img id="logo{{ loop.index }}" height="79" width="170" src="{% if assignment.app_id %}{{ path.cover.cdn ~ assignment.app_id|e ~ path.cover.header }}{% else %}{{ path_for('home') }}images/missing.jpg{% endif %}" onerror="replace({{ loop.index }})">
+                    </td>
+                    <td>
+                        {% include 'components/wiki.twig' %}
+                        {% include 'components/report.twig' %}
+                    </td>
+                    <td>
+                        {% if assignment.release_at > "now"|date('Y-m-d') %}
+                            <i class="fa fa-exclamation-circle fa-unreleased" title="This assignment is for an unreleased title, allocation may not occur until nearer release"></i>
+                        {% endif %}
+
+                        {{ assignment.title|e }}
+
+                        {% if session and assignment.applications.count %}
+                            <span class="count"><strong>{{ assignment.applications.count }}</strong></span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% include 'components/admin/assignment/expiration.twig' %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="bar bar-footer"></div>
+    {% else %}
+        <div class="well text-center">
+            Unfortunately, we have no available assignments at the moment.<br /><br />Please check back another time.
+        </div>
+    {% endif %}
+
+    {% if upcoming is not empty %}
+        <div class="bar bar-header">
+            <span class="title">Upcoming Releases</span>
+            <span class="title-addendum">Reference only; not guaranteed to become assignments. This list may not be 100% accurate.</span>
+        </div>
+
+        <table class="table table-padded-first table-upcoming">
+            <thead>
+                <tr>
+                    <th width="14%">Date</th>
+                    <th width="40%">Name</th>
+                    <th width="22%">Developer</th>
+                    <th width="22%">Publisher</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for game in upcoming if (game.release_dates.date / 1000)|date('Y-m-d') < "2 months"|date('Y-m-t') %}
+                    <tr>
+                        <td>
+                            {{ (game.release_dates.date / 1000)|date('F d') }}
+                        </td>
+                        <td>
+                            {{ game.name }}
+                        </td>
+                        <td>
+                            {% for developer in game.developers %}
+                                {{ developer['name'] }}<br />
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for publisher in game.publishers if publisher not in game.developers %}
+                                {{ publisher['name'] }}<br />
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="bar bar-footer text-center">
+            <span class="title-addendum">
+                Game information was freely provided by <a href="https://www.igdb.com/" target="_blank">IGDB.com</a>
+            </span>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    function replace(id) {
+        $('img#logo'+id).attr("src", "{{ path_for('home') }}images/missing.jpg");
+    }
+</script>
+{% endblock %}

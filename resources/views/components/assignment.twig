@@ -1,0 +1,37 @@
+<table class="table table-row">
+    <thead>
+        <tr>
+            <th width="21%"></th>
+            <th width="12%">Required</th>
+            <th width="50%">Name</th>
+            <th width="15%">Expires</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>
+                <img id="logo{{ loop.index }}" height="79" width="170" src="{{ assignment.app_id ? path.cover.cdn ~ assignment.app_id|e ~ path.cover.header : path_for('home') ~ 'images/missing.jpg' }}" onerror="replace({{ loop.index }})">
+            </td>
+
+            <td>
+                {% include 'components/wiki.twig' %}
+                {% include 'components/report.twig' %}
+            </td>
+
+            <td>
+                {% include 'components/admin/assignment/title.twig' %}
+            </td>
+
+            <td>
+                {% include 'components/admin/assignment/expiration.twig' %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    function replace(id) {
+        $('img#logo'+id).attr("src", "{{ path_for('home') }}images/missing.jpg");
+    }
+</script>

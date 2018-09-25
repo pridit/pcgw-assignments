@@ -1,0 +1,56 @@
+{% if flash.tokens %}
+    <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div style="width: 400px;" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body modal-min">
+                    <div class="modal-header">
+                        {% include 'components/modals/title.twig' with {'title': 'Tokens'} %}
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="68%">Code</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for token in flash.tokens[0]['tokens'] if flash.tokens[0]['tokens'] %}
+                                <tr>
+                                    <td>{{ token.hash }}</td>
+                                    <td>{% if token.used_by is empty %}<span class="red">Unredeemed</span>{% else %}<span class="green" title="{{ token.allocation.email }}">Redeemed</span>{% endif %}</td>
+                                    <td class="text-right">
+                                        {% if token.used_by is null %}
+                                            <form action="{{ path_for('admin.tokens.destroy', {id: token.id}) }}" method="post">
+                                                <input type="hidden" name="_METHOD" value="delete" />
+                                                {{ csrf_fields|raw }}
+                                                <button class="icon fade"><i class="fa fa-times"></i></button>
+                                            </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td class="text-center" colspan="3">You have not generated any tokens yet.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <form class="form" action="{{ path_for('admin.tokens.store') }}" method="post" autocomplete="off">
+                        {{ csrf_fields|raw }}
+                        <button class="btn submit" type="submit">Generate Token</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#myModal').modal();
+    </script>
+{% endif %}

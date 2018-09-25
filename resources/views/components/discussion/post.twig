@@ -1,0 +1,32 @@
+<thead>
+    <tr{{ post.user.count ? ' style="background-color: #d9534f"' : ''}}>
+        <th style="padding-left: 10px">
+            {{ post.user.count ? post.user.username : post.author }}
+        </th>
+        <th colspan="3" width="95%"></th>
+    </tr>
+</thead>
+
+<tbody>
+    <tr>
+        <td height="200px" width="12%" class="avatar text-center" style="vertical-align: top">
+            <img src="https://robohash.org/{{ post.user.count ? post.user.username|lower : post.author|lower }}?set=set2" />
+            {% if post.user.count %}
+                <span class="label label-danger label-avatar text-center">Administrator</span>
+            {% else %}
+                <span class="label label-default label-avatar text-center">Guest</span>
+            {% endif %}
+        </td>
+        <td style="vertical-align:top; padding-top: 9px; padding-bottom: 10px; padding-left: 10px" width="79%">{{ post.body|nl2br }}</td>
+        <td style="vertical-align:top; padding-top: 12px; font-size: 0.8em; color: #666" width="20%" class="text-center">
+            {% if session and post.id != post.thread.post_id %}
+                <form style="float: left" action="{{ path_for('admin.posts.destroy', {id: post.id}) }}" method="post">
+                    <input type="hidden" name="_METHOD" value="delete"/>
+                    {{ csrf_fields|raw }}
+                    <input type="submit" class="fa fa-pinned" value="&#xf1f8;" />
+                </form>
+            {% endif %}
+            <span data-livestamp="{{ post.created_at }}"></span>
+        </td>
+    </tr>
+</tbody>

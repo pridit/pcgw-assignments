@@ -1,0 +1,2 @@
+{% set index = items.firstItem() - 1 %}
+<span class="pull-left">Showing {% if not index %}1{% else %}{{ index + 1 }}{% endif %} - {{ index + items|length }} of {{ items.total }}</span>

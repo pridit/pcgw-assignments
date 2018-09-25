@@ -1,0 +1,52 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %} - Requests{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="bar bar-header">
+        <span class="title">Requests</span>
+    </div>
+
+    <table class="table">
+        {% if requests is not empty %}
+            <thead>
+                <tr>
+                    <th width="33%">Title</th>
+                    <th width="26%">Developer</th>
+                    <th width="26%">Publisher</th>
+                    <th width="15%">Release</th>
+                    <th width="5%" class="text-right"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for request in requests %}
+                    <tr>
+                        <td class="ellipsis" height="55px">{{ request.title }}</td>
+                        <td class="ellipsis">{{ request.developer }}</td>
+                        <td class="ellipsis">{{ request.publisher }}</td>
+                        <td>
+                            {% if request.release_at is not null %}
+                                <span id="release" data-livestamp="{{ request.release_at }}"></span></td>
+                            {% else %}
+                                Pre-release
+                            {% endif %}
+                        <td>
+                            <form class="actions" action="{{ path_for('admin.requests.destroy', {id: request.id}) }}" method="post">
+                                <input type="hidden" name="_METHOD" value="delete"/>
+                                {{ csrf_fields|raw }}
+                                <button class="btn btn-sm red" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="bar bar-footer"></div>
+    {% else %}
+        <div class="well text-center">There are no active requests at this time.</div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %} - {{ thread.title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="bar bar-header bar-actionable">
+        <a class="pull-left" href="{{ path_for('discussions.index') }}">
+            <button class="action">Discussions</button>
+        </a>
+
+        <span class="title">{{ (thread.is_pinned ? 'Pinned: ' : thread.is_closed ? 'Closed: ' : '') ~ thread.title }}</span>
+
+        {% if not thread.is_closed or session is not null %}
+            <a href="{{ path_for('posts.create', {id: thread.id, slug: thread.slug}) }}">
+                <button class="action">Reply</button>
+            </a>
+        {% else %}
+            <span class="title-addendum">This thread is closed and prevents further replies</span>
+        {% endif %}
+    </div>
+
+    <table class="table table-row">
+        {% for post in posts %}
+            {% include 'components/discussion/post.twig' %}
+        {% endfor %}
+    </table>
+
+    <div class="bar bar-footer bar-pagination">
+        {% include 'components/pagination/numbered.twig' with {'items': posts, 'page': path_for('discussions.show', {id: thread.id, slug: thread.slug})} %}
+    </div>
+</div>
+{% endblock %}

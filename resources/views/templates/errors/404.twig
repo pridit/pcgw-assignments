@@ -1,0 +1,16 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %} - Not Found{% endblock %}
+
+{% block content %}
+    <div class="not-found">
+        <div class="container-fluid text-center">
+            <h1>Not Found</h1>
+            <p>pcgamingwiki.exe has stopped working</p>
+            <img class="error" src="{{ path_for('home') }}images/404.jpg">
+            <p>
+                <a href="{{ path_for('home') }}">Return to the homepage</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

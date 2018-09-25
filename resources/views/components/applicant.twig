@@ -1,0 +1,7 @@
+<a href="{{ path.pcgw.user.contrib ~ applicant.name|e }}" target="_blank"><img class="icon icon-pcgw" src="{{ path_for('home') }}images/icons/pcgw.png" /></a>
+<a {% if applicant.blacklisted %}class="blacklisted" {% endif %}href="{{ path_for('admin.applicants.assigned', {'id': applicant.id}) }}" target="_blank">{{ applicant.name }}</a>
+{% if applicant.dxdiag.os %}
+    <a href="{{ path_for('admin.applicants.dxdiag', {'id': applicant.id}) }}" title="DxDiag">
+        <img class="icon icon-dxdiag" src="{{ path_for('home') }}images/icons/dxdiag.png"/>
+    </a>
+{% endif %}

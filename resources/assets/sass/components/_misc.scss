@@ -1,0 +1,130 @@
+html {
+	height: 100%;
+}
+
+body {
+    margin-bottom: 45px !important;
+}
+
+.container-fluid {
+	margin: 0 auto;
+}
+
+.banner {
+	padding-top: 90px;
+	padding-bottom: 40px;
+}
+
+div.not-found {
+	height: 90%;
+	display: flex;
+	box-sizing: padding-box;
+	font: normal 1em arial;
+	align-items: center;
+	justify-content: center;
+	-ms-flex-align: center;
+
+    > .container-fluid {
+        position: absolute;
+        margin-top: 10px;
+    	top: 50%;
+    	left: 50%;
+    	transform: translate(-50%, -50%);
+
+        > h1 {
+            font-size: 3.8em;
+        	margin-bottom: 40px;
+        }
+
+        > p {
+            font-size: 1.5em;
+        }
+    }
+}
+
+.vertical-align {
+	display: flex;
+	align-items: center;
+}
+
+.action {
+	color: white;
+}
+
+.action:link, .action:hover {
+	color: white;
+}
+
+.btn:focus, .btn:hover {
+	color: white;
+}
+
+.btn:link, .btn:visited, .btn:hover, .btn:active {
+	text-decoration: none;
+	color: white;
+}
+
+label {
+	font-weight: normal;
+}
+
+label.checkbox-small {
+	display: inherit;
+}
+
+label.strong {
+	font-weight: bold;
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+i.fade {
+	opacity: 0.4;
+}
+
+a:link, a:visited, a:hover, a:active {
+	text-decoration: none;
+}
+
+.btn[disabled] {
+	opacity: 0.75;
+}
+
+td.avatar {
+    background-color: #CCC;
+}
+
+td.avatar img {
+    width: 80px;
+    padding-top: 10px;
+}
+
+.btn:disabled {
+	opacity: 0.4;
+}
+
+a.disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+a.blacklisted {
+	opacity: 0.6;
+	color: red;
+}
+
+a.blacklisted:hover {
+	opacity: 1;
+}
+
+hr {
+	border: 1px solid #DDD;
+}
+
+@media(max-width:470px) {
+	.important > span.icon {
+		padding: 20px 25px 20px 25px;
+	}
+}

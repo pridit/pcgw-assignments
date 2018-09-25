@@ -1,0 +1,82 @@
+{% if flash.request %}
+    <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div style="width: 330px;" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% include 'components/modals/title.twig' with {'title': 'Request'} %}
+                </div>
+
+                <form class="form" action="{{ path_for('requests.create') }}" method="post" autocomplete="off">
+                    <div class="modal-body">
+                        <label for="title" class="strong"><span class="required" title="This is required">*</span> Full Title</label>
+                        <input class="form-control" name="title" id="title" placeholder="Grand Theft Auto V" autofocus required>
+                        <div style="color: red" id="title-feedback"></div><br />
+
+                        <label for="company" class="strong"><span class="required" title="This is required">*</span> Developer</label>
+                        <input class="form-control" name="developer" id="developer" placeholder="Rockstar Games" required><br />
+
+                        <label for="company" class="strong">Publisher</label><label class="pull-right"><input type="checkbox" id="chk_publisher" value="true"> Same as above</label>
+                        <input class="form-control" name="publisher" id="publisher" placeholder="Take-Two Interactive" required><br />
+
+                        <label for="title" class="strong">Release <i class="fa fa-info-circle" title="Excluding Early Access we only accept requests for games that are no further than a month from release, this is because inquiries for review code need to happen within this period (usually sooner, but never later)"></i></label>
+                        <label class="pull-right" title="Early Access or other official pre-release state.">
+                            <input type="checkbox" id="early_access" value="true"> Pre-release
+                        </label>
+                        <input class="form-control date" type="text" name="release_at" id="release" readonly="readonly" placeholder="yyyy-mm-dd" required>
+                        <div style="color: red" id="release-feedback"></div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn submit" id="request" type="submit">Request</button>
+                    </div>
+
+                    {{ csrf_fields|raw }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#myModal').modal();
+
+        $("#title").focus();
+
+        $('#chk_publisher').change(function() {
+            $('#publisher').attr('disabled', this.checked);
+        });
+
+        $('#early_access').change(function() {
+            $('#release').attr('disabled', this.checked);
+        });
+
+        $(function() {
+            $(".date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                minDate: 14,
+                maxDate: 44,
+            });
+        });
+
+        $('#title').on('blur', function() {
+            var target = $('#title');
+            var feedback = $('#title-feedback');
+            var submit = $('#request');
+
+            $.ajax({
+                url: 'v1/api/assignment/' + target.val(),
+                type: 'GET',
+                dataType: 'json',
+
+                success: function(data) {
+                    if(data.is_assignment === true || data.is_request === true) {
+                        feedback.text('An assignment or request already exists for this title');
+                        submit.attr("disabled", true);
+                    } else {
+                        feedback.text('');
+                        submit.removeAttr("disabled");
+                    }
+                }
+            });
+        });
+    </script>
+{% endif %}

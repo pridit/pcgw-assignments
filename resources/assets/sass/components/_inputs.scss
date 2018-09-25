@@ -1,0 +1,68 @@
+input {
+    &.fa {
+        font-size: 1.1em;
+        border: none;
+        cursor: pointer;
+        margin-left: 6px;
+        margin-top: 2px;
+        padding: 0;
+    	font-family: FontAwesome;
+        background-color: #fff;
+    }
+
+    &.modify {
+        position: absolute;
+    	color: #C48E48;
+    }
+
+    &.lock {
+        margin-left: -22px;
+        position: absolute;
+        font-size: 1.2em;
+        color: #cf2a19;
+    }
+
+    &.unlock {
+        margin-left: -22px;
+        position: absolute;
+        font-size: 1.2em;
+        color: #229351;
+    }
+
+    &.file {
+    	width: 0.1px;
+    	height: 0.1px;
+    	opacity: 0;
+    	overflow: hidden;
+    	position: absolute;
+    	z-index: -1;
+
+        + label {
+            cursor: pointer;
+            color: white;
+        	padding: 10px;
+            background-color: #4F6CA5;
+        	width: 100%;
+        }
+    }
+
+    &.checkbox {
+        display: none;
+    }
+}
+
+textarea {
+    resize: none;
+}
+
+td.thread-new {
+    background-color: #BBB;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+form.actions {
+    float: right;
+    margin-left: 8px;
+}

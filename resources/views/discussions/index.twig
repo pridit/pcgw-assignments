@@ -1,0 +1,71 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %} - Discussions{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    {% if notice.discussions %}
+        {% include 'components/notice.twig' with {text: notice.discussions} %}
+    {% endif %}
+
+    <div class="bar bar-header">
+        <span class="title">Discussions</span>
+        <a href="{{ path_for('discussions.create') }}">
+            <button class="action">New</button>
+        </a>
+    </div>
+
+    {% if threads is not empty %}
+        <table class="table table-padded table-highlight">
+            <thead>
+                <tr>
+                    <th width="4%"></th>
+                    <th width="62%">Thread</th>
+                    <th width="20%" class="text-center">Replies</th>
+                    <th width="15%">Last Updated</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for thread in threads %}
+                    <tr class="{{ thread.is_pinned ? 'pinned' : ''}}" onclick="window.document.location='{{ path_for('discussions.show', {id: thread.id, slug: thread.slug}) }}'">
+                        <td style="opacity: 0.7" class="text-center">
+                            <i class="fa{{ thread.is_pinned ? ' fa-thumb-tack' : thread.is_closed ? ' fa-lock' : ' fa-file-text-o' }}"></i>
+                        </td>
+                        <td style="font-weight: bold; color: #4D5F72">
+                            <span class="{{ thread.closedNotPinned ? 'strike' : '' }}">{{ thread.title }}</span>
+                            {% if session %}
+                                <form style="display: inline" action="{{ path_for('admin.threads.destroy', {id: thread.id}) }}" method="post">
+                                    <input type="hidden" name="_METHOD" value="delete"/>
+                                    {{ csrf_fields|raw }}
+                                    <input type="submit" class="fa pull-right" value="&#xf1f8;" />
+                                </form>
+
+                                <form style="display: inline" action="{{ path_for('admin.threads.close', {id: thread.id}) }}" method="post">
+                                    <input type="hidden" name="_METHOD" value="patch"/>
+                                    {{ csrf_fields|raw }}
+                                    <input type="submit" class="fa pull-right" value="{{ thread.is_closed ? '&#xf13e;' : '&#xf023;' }}" />
+                                </form>
+
+                                <form style="display: inline" action="{{ path_for('admin.threads.pin', {id: thread.id}) }}" method="post">
+                                    <input type="hidden" name="_METHOD" value="patch"/>
+                                    {{ csrf_fields|raw }}
+                                    <input type="submit" class="fa pull-right" value="&#xf08d;" />
+                                </form>
+                            {% endif %}
+                        </td>
+                        <td class="text-center{{ thread.closedNotPinned ? ' faded' : '' }}">{{ thread.posts.count - 1 ?: 0 }}</td>
+                        <td class="{{ thread.closedNotPinned ? 'faded' : '' }}" style="font-size: 0.85em"><span data-livestamp="{{ thread.posts.count ? thread.posts.last.created_at : thread.created_at }}"></span></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="bar bar-footer bar-pagination">
+            {% include 'components/pagination/numbered.twig' with {'items': threads, 'page': path_for('discussions.index')} %}
+        </div>
+    {% else %}
+        <div class="well text-center">There are no discussions. Why not be the first to create one?</div>
+    {% endif %}
+</div>
+{% endblock %}

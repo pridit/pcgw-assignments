@@ -1,0 +1,33 @@
+img {
+    &.logo {
+        height: 120px;
+    }
+
+    &.review-codes {
+        float: right;
+    	width: 120px;
+    }
+
+    &.icon {
+        height: 12px;
+        margin-top: -2px;
+
+        &.icon-pcgw {
+            margin-right: 3px;
+        }
+
+        &.icon-dxdiag {
+            width: 12px;
+            margin-top: 0;
+        }
+    }
+
+    &.cover {
+        float: right;
+    }
+
+    &.error {
+    	padding-top: 40px;
+    	padding-bottom: 40px;
+    }
+}

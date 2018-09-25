@@ -1,0 +1,85 @@
+button {
+    &.submit {
+    	width: auto;
+    	padding-top: 12px; padding-bottom: 12px;
+    	padding-left: 20px; padding-right: 20px;
+    	border: 0;
+    	border-radius: 5px;
+    	font-size: 1em;
+    	font-weight: bold;
+    	background-color: #4F6CA5;
+    	color: #FFF;
+    	float: right;
+    }
+
+    &.delete {
+        background-color: #e74c3c;
+    }
+
+    &.apply {
+        background-color: #4F6CA5;
+    	color: #FFF;
+    	border: 0;
+    	border-radius: 0;
+    	padding: 8px;
+    	font-weight: bold;
+    }
+
+    &.icon {
+        background-color: #FFF;
+    	border: 0;
+    	border-radius: 0;
+    }
+
+    &.user {
+        background-color: #7f8c8d;
+    	color: #FFF;
+    	border: 0;
+    	border-radius: 0;
+    	padding: 8px;
+    }
+
+    &.black {
+    	background-color: #555;
+    	color: #FFF;
+    	border: 0;
+    	border-radius: 0;
+    	padding: 8px;
+    }
+
+    &.red {
+        background-color: #e74c3c;
+    	color: #FFF;
+    	border: 0;
+    	border-radius: 0;
+    	padding: 8px;
+    }
+
+    &.close {
+        color: white;
+    	font-size: 1.35em;
+
+        &:hover,
+        &:focus {
+            color: white;
+        }
+
+    }
+
+    &.fade {
+        opacity: 0.45;
+    }
+
+    &.action {
+        font-size: 0.9em;
+        padding: 0 15px 0 15px;
+        float: right;
+        height: 45px;
+        border: none;
+        background-color: #6e869d;
+
+        &.action-green {
+            background-color: green;
+        }
+    }
+}

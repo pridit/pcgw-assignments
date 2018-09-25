@@ -1,0 +1,42 @@
+.fa {
+    background: rgba(0,0,0,0) !important;
+
+    &.fa-asterisk {
+        color: #446CB3;
+        opacity: 1;
+    }
+
+    &.fa-lock {
+        font-size: 1.2em;
+        margin-top: 5px;
+    }
+
+    &.fa-thumb-tack {
+        font-size: 1.1em;
+        margin-left: 1px;
+        margin-top: 1px;
+    }
+
+    &.fa-info-circle {
+    	color: #337ab7;
+        cursor: help;
+    }
+
+    &.fa-unreleased {
+        color: #EE9A00;
+    	float: left;
+    	cursor: help;
+        font-size: 1.2em;
+        margin-top: 2px;
+        margin-right: 7px;
+    }
+
+    &.fa-home {
+    	font-size: 1.5em;
+        padding-left: 5px;
+    }
+
+    &.fa-check { color: black; }
+    &.fa-home { color: #dfc156; }
+    &.fa-times { font-size: 1.2em; }
+}

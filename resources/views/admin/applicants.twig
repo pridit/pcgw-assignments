@@ -1,0 +1,112 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %} - Applicants{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="bar bar-header">
+        <span class="title">Applicants</span>
+    </div>
+
+    <div class="content">
+        <table class="table table-padded-first">
+            <thead>
+                <tr>
+                    <th width="5%">#</th>
+                    <th width="15%">Username</th>
+                    <th width="15%" class="text-center">Outstanding</th>
+                    <th width="15%" class="text-center">Applied</th>
+                    <th width="8%" class="text-center">Assigned</th>
+                    <th width="15%" class="text-right"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for applicant in applicants %}
+                <tr>
+                    <td>{{ loop.index + pagination.index }}</td>
+                    <td height="55px">
+                        {% if applicant.name != 'System' %}
+                            {% include 'components/applicant.twig' %}
+                        {% else %}
+                            System
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        <span class="article{% if applicant.outstanding.count == 0 %} fade{% endif %}" title="Wiki article"></span>
+                        <span class="report{% if applicant.outstanding.last.assignment.report == 0 or applicant.outstanding.last.assignment.path_report is not null %} fade{% endif %}" title="PC report"></span>
+                    </td>
+                    <td class="text-center">
+                        {% if applicant.applications.count %}
+                            <a href="{{ path_for('admin.applicants.applied', {'id': applicant.id}) }}">{{ applicant.applications.count }}</a>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        {% if applicant.assigns.count %}
+                            <a href="{{ path_for('admin.applicants.assigned', {'id': applicant.id}) }}">{{ applicant.assigns.count }}</a>
+                        {% endif %}
+                    </td>
+                    <td class="text-right">
+                        {% if applicant.name != 'System' %}
+                            <form class="actions" action="{{ path_for('admin.applicants.blacklist', {id: applicant.id}) }}" method="post">
+                                <input type="hidden" name="_METHOD" value="patch"/>
+                                {{ csrf_fields|raw }}
+                                <button class="btn btn-sm black{% if applicant.blacklisted %} fade{% endif %}" type="submit">Blacklist</button>
+                            </form>
+
+                            {% if not applicant.assigns.count and not applicant.applications.count %}
+                                <form class="actions" action="{{ path_for('admin.applicants.destroy', {id: applicant.id}) }}" method="post">
+                                    <input type="hidden" name="_METHOD" value="delete"/>
+                                    {{ csrf_fields|raw }}
+                                    <button class="btn btn-sm red" type="submit"{% if assigned[loop.index0]['count'] %} disabled{% endif %}>Delete</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="bar bar-footer bar-pagination text-right">
+            {% include 'components/pagination/numbered.twig' with {'items': applicants, 'page': path_for('admin.applicants.index')} %}
+        </div>
+    </div>
+</div>
+
+<script>
+    ;(function($){
+
+        /**
+         * Store scroll position for and set it after reload
+         *
+         * @return {boolean} [loacalStorage is available]
+         */
+        $.fn.scrollPosReaload = function(){
+            if (localStorage) {
+                var posReader = localStorage["posStorage"];
+                if (posReader) {
+                    $(window).scrollTop(posReader);
+                    localStorage.removeItem("posStorage");
+                }
+                $(this).click(function(e) {
+                    localStorage["posStorage"] = $(window).scrollTop();
+                });
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /* ================================================== */
+
+        $(document).ready(function() {
+            $('a.dxdiag').scrollPosReaload();
+            $('button.btn').scrollPosReaload();
+        });
+
+    }(jQuery));
+</script>
+
+{% endblock %}

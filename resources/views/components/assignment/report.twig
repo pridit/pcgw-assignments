@@ -1,0 +1,5 @@
+{% if assignment.path_report %}
+    <a href="{{ path.pcgw.report ~ assignment.path_report|e }}" target="_blank"><span class="report" title="PC report"></span></a>
+{% elseif assignment.report %}
+    <span class="report fade"></span>
+{% endif %}

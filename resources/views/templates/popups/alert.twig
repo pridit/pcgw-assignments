@@ -1,0 +1,9 @@
+{% if flash.alert %}
+    <script>
+        swal({
+            type: "{{ flash.alert[0][0] }}",
+            title: "{{ flash.alert[0][1] }}",
+            text: "{{ flash.alert[0][2] }}",
+        });
+    </script>
+{% endif %}

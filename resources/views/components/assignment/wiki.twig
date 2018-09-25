@@ -1,0 +1,4 @@
+{% set href = assignment.app_id ? path.pcgw.api.steam ~ assignment.app_id|e : path.pcgw.article ~ assignment.title %}
+<a href="{{ href }}" target="_blank">
+    <span class="article" title="Wiki article"></span>
+</a>

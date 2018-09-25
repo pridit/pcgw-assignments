@@ -1,0 +1,108 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %} - Assignments{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="bar bar-header">
+        <span class="title">Assignments</span>
+    </div>
+
+    <div class="content">
+        <table class="table table-row">
+            <thead>
+                <tr>
+                    <th width="16%"></th>
+                    <th width="11%"></th>
+                    <th width="44%">Title</th>
+                    <th width="10%" class="text-center">Applications</th>
+                    <th width="10%" class="text-center">Assigns</th>
+                    <th class="text-center">Standard</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for assignment in assignments %}
+                    <tr>
+                        <td>
+                            <img id="logo{{ loop.index }}" style="height: 45px" src="{{ assignment.app_id ? path.cover.cdn ~ assignment.app_id|e ~ path.cover.capsule : path_for('home') ~ 'images/missing_sm.jpg' }}" onerror="replace({{ loop.index }})">
+                        </td>
+                        <td>
+                            {% include 'components/assignment/wiki.twig' %}
+                            {% include 'components/assignment/report.twig' %}
+                        </td>
+                        <td>
+                            {% include 'components/admin/assignment/title.twig' %}
+                        </td>
+                        <td class="text-center">
+                            {% if assignment.applications.count %}
+                                <a href="{{ path_for('admin.assignments.applications', {'id': assignment.id}) }}">
+                                    {{ assignment.applications.count }}
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if assignment.assigns.count %}
+                                {% if assignment.assigns.first.applicant_id != 1 %}
+                                    <a class="assignees" href="{{ path_for('admin.assignments.assigns', {'id': assignment.id} ) }}">
+                                        {{ assignment.assigns.count }}
+                                    </a>
+                                {% else %}
+                                    {{ assignment.assigns.count }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% include 'components/admin/assignment/complete.twig' %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="bar bar-footer bar-pagination">
+            {% include 'components/pagination/numbered.twig' with {'items': assignments, 'page': path_for('admin.assignments.index')} %}
+        </div>
+    </div>
+</div>
+
+<script>
+    ;(function($){
+
+        /**
+         * Store scroll position for and set it after reload
+         *
+         * @return {boolean} [loacalStorage is available]
+         */
+        $.fn.scrollPosReload = function(){
+            if (localStorage) {
+                var posReader = localStorage["posStorage"];
+                if (posReader) {
+                    $(window).scrollTop(posReader);
+                    localStorage.removeItem("posStorage");
+                }
+                $(this).click(function(e) {
+                    localStorage["posStorage"] = $(window).scrollTop();
+                });
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /* ================================================== */
+
+        $(document).ready(function() {
+            $('button').scrollPosReload();
+            $('form').scrollPosReload();
+        });
+
+    }(jQuery));
+
+    function replace(id) {
+        $('img#logo'+id).attr("src", "{{ path_for('home') }}images/missing_sm.jpg");
+    }
+</script>
+
+{% endblock %}

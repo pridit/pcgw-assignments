@@ -1,0 +1,60 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %} - Assigned{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="bar bar-header">
+        <span class="title">Applied</span>
+        <span class="title-addendum pull-right">{{ applicant.name }}</span>
+    </div>
+
+    {% if applicant.applications is not empty %}
+        <div class="content">
+            <table class="table table-row sortable">
+                <thead>
+                    <tr>
+                        <th width="21%" class="sorttable_nosort"></th>
+                        <th width="11%" class="sorttable_nosort"></th>
+                        <th style="cursor: pointer" width="41%" class="unselectable">Title</th>
+                        <th class="sorttable_nosort text-right"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for application in applicant.applications %}
+                        <tr>
+                            <td>
+                                <img id="logo{{ loop.index }}" width="170" src="{{ application.assignment.app_id ? path.cover.cdn ~ application.assignment.app_id|e ~ path.cover.header : path_for('home') ~ 'images/missing.jpg' }}" onerror="replace({{ loop.index }})">
+                            </td>
+                            <td>
+                                {% include 'components/assignment/wiki.twig' with {assignment: application.assignment} %}
+                                {% include 'components/assignment/report.twig' with {assignment: application.assignment} %}
+                            </td>
+                            <td data-st-key="{{ application.assignment.title|e }}">
+                                {% include 'components/admin/assignment/title.twig' with {'assignment': application.assignment} %}
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ path_for('admin.assignments.applications', {'id': application.assignment.id, 'assignment': application.assignment.slug }) }}"><button class="btn btn-sm apply">View Applications</button></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="bar bar-footer"></div>
+        {% else %}
+            <div class="well text-center">Applicant has not created any applications</div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        (document.getElementsByTagName('th')[2]).click();
+    };
+
+    function replace(id) {
+        $('img#logo'+id).attr("src", "{{ path_for('home') }}images/missing.jpg");
+    }
+</script>
+{% endblock %}

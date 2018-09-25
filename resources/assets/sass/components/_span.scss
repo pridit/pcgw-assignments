@@ -1,0 +1,68 @@
+span {
+    &.green { color: green; }
+    &.red { color: red; }
+    &.required { color: red; }
+
+    &.help {
+        cursor: help;
+        border-bottom: 1px dotted #BBB;
+    }
+
+    &.right {
+        float: right;
+        font-size: 0.6em;
+    	line-height: 2.6em;
+    }
+
+    &.article {
+        color: white;
+        padding: 9px;
+    	font-weight: bold;
+    	margin-right: 4px;
+        background-color: #2cc36b;
+
+        &:before {
+            content: "W";
+        }
+    }
+
+    &.report {
+        color: white;
+        padding: 9px;
+    	font-weight: bold;
+        margin-right: 4px;
+        padding-left: 9.5px;
+        padding-right: 9.5px;
+        background-color: #E28F58;
+
+        &:after {
+            content: "R";
+        }
+    }
+
+    &.sm {
+        padding: 5px;
+        font-size: 1em;
+    	margin-right: 2px;
+    }
+
+    &.fade {
+        opacity: 0.45;
+    }
+
+    &.label-avatar {
+        line-height: 4em;
+    }
+
+    &.count {
+    	background-color: #9E9554;
+    	padding-left: 4px;
+    	padding-right: 4px;
+    	color: white;
+    	margin-left: 4px;
+    }
+
+    &.highlight { font-weight: bold; text-shadow: 1px 1px #576c81; }
+    &.highlight-wiki { color: #2cc36b; }
+    &.highlight-report { color: #E28F58; }
+}

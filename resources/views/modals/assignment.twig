@@ -1,0 +1,125 @@
+{% if flash.assignment or flash.update %}
+    <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div style="width: 400px" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% include 'components/modals/title.twig' with {'title': (flash.update ? 'Update' : 'New') ~ ' Assignment'} %}
+                </div>
+
+                <form class="form" action="{{ flash.assignment ? path_for('admin.assignments.store') : path_for('admin.assignments.update') }}" method="post" autocomplete="off">
+                    <div class="modal-body">
+                        <label for="title" class="strong"><span class="required" title="This is required">*</span> Full Title</label><label class="pull-right"><input type="checkbox" name="report" id="report" value="1" {% if flash.update and flash.update[0]['report'] %}checked{% endif %}> PC report required</label>
+                        <input class="form-control" name="title" id="title" placeholder="Grand Theft Auto V" {% if flash.update %}value="{{ flash.update[0]['title'] }}" disabled{% endif %} autofocus required>
+                        {% if not flash.update %}<div style="color: red" id="title-feedback"></div>{% endif %}<br />
+
+                        <label for="app_id" class="strong">AppID</label><span class="pull-right help" title="Unique numerical identifier for the game on Steam">?</span>
+                        <input class="form-control" name="app_id" id="app_id" placeholder="243470" {% if flash.update[0]['app_id'] %}value="{{ flash.update[0]['app_id'] }}"{% endif %}><br />
+
+                        <label for="url" class="strong">Official Website</label>
+                        <input class="form-control" name="url" id="url" placeholder="http://pcgamingwiki.com" {% if flash.update[0]['url'] %}value="{{ flash.update[0]['url'] }}"{% endif %}><br />
+
+                        <label for="release" class="strong"><span class="required" title="This is required">*</span> Release</label><label class="pull-right" title="Early Access or other official pre-release state."><input type="checkbox" name="early_access" id="early_access" value="true" {% if flash.update and flash.update[0]['release_at'] is null %}checked{% endif %}> Pre-release</label>
+                        <input class="form-control date" type="text" name="release" id="release" placeholder="yyyy-mm-dd" {% if flash.update[0]['release_at'] %}value="{{ flash.update[0]['release_at'] }}"{% endif %} required><br />
+
+                        <label for="expiry" class="strong"><span class="required" title="This is required">*</span> Expiry</label><label class="pull-right" title="Available until manually closed."><input type="checkbox" name="no_expiry" id="no_expiry" value="true" {% if flash.update and flash.update[0]['expire_at'] is null %}checked{% endif %}> None set</label>
+                        <input class="form-control date" type="text" name="expiry" id="expiry" placeholder="yyyy-mm-dd" {% if flash.update[0]['expire_at'] %}value="{{ flash.update[0]['expire_at'] }}"{% endif %} required>
+
+                        {% if flash.update %}
+                            <br /><label for="path_report" class="strong">PC Report</label>
+                            <input class="form-control" name="path_report" id="path_report" placeholder="amnesia-a-machine-for-pigs-r78" {% if flash.update[0]['path_report'] %}value="{{ flash.update[0]['path_report'] }}"{% endif %}>
+                        {% endif %}
+                    </div>
+
+                    <div class="modal-footer">
+                        {% if flash.update %}
+                            <input type="hidden" name="_METHOD" value="patch"/>
+                        {% endif %}
+                        {{ csrf_fields|raw }}
+                        <button class="btn submit" name="submit" {% if flash.update %}id="update" value="{{ flash.update[0]['id'] }}"{% else %}id="create"{% endif %} type="submit">{% if flash.update %}Update{% else %}Create{% endif %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#myModal').modal();
+
+        $("#title").focus();
+
+        $('#early_access').change(function() {
+            $('#release').attr('disabled', this.checked);
+        });
+
+        $('#no_expiry').change(function() {
+            $('#expiry').attr('disabled', this.checked);
+        });
+
+        $(document).ready( function(){
+            if($('#early_access').is(':checked')) {
+                $('#release').prop("disabled", true);
+            }
+
+            if($('#no_expiry').is(':checked')) {
+                $("#expiry").prop("disabled", true);
+            }
+        });
+
+        $(function() {
+            $(".date").datepicker({ dateFormat: 'yy-mm-dd' });
+        });
+
+        $('#title').on('blur', function() {
+            var target = $('#title');
+            var feedback = $('#title-feedback');
+            var submit = $('#create');
+
+            $.ajax({
+                url: 'v1/api/assignment/' + target.val(),
+                dataType: 'json',
+
+                success: function(data) {
+                    if(data.is_assigned === true) {
+                        feedback.text('An assignment already exists for this title');
+                        submit.attr("disabled", true);
+                    } else {
+                        feedback.text('');
+                        submit.removeAttr("disabled");
+                    }
+                }
+            });
+        });
+
+        ;(function($){
+
+            /**
+             * Store scroll position for and set it after reload
+             *
+             * @return {boolean} [loacalStorage is available]
+             */
+            $.fn.scrollPosReload = function(){
+                if (localStorage) {
+                    var posReader = localStorage["posStorage"];
+                    if (posReader) {
+                        $(window).scrollTop(posReader);
+                        localStorage.removeItem("posStorage");
+                    }
+                    $(this).click(function(e) {
+                        localStorage["posStorage"] = $(window).scrollTop();
+                    });
+
+                    return true;
+                }
+
+                return false;
+            }
+
+            /* ================================================== */
+
+            $(document).ready(function() {
+                $('button').scrollPosReload();
+            });
+
+        }(jQuery));
+    </script>
+{% endif %}

@@ -1,0 +1,49 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %} - Application{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <form class="form" action="{{ path_for('applications.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
+        <div class="bar bar-header">
+            <span class="title">Criteria</span>
+        </div>
+
+        <section class="criteria">
+            <span class="unselectable">Registered for at least one (<strong>1</strong>) month on PCGamingWiki.</span>
+        </section>
+
+        <section class="criteria">
+            <span class="unselectable">Contributed at least fifty (<strong>50</strong>) edits throughout the wiki.</span>
+        </section><br />
+
+        <div class="bar header pull-right">
+            <span class="title">Application</span>
+            {% if assignment.app_id %}
+                <img class="cover" src="{{ path.cover.cdn ~ assignment.app_id|e ~ path.cover.capsule }}">
+            {% endif %}
+        </div>
+
+        <div class="well well-sm">
+            <label class="strong"><span class="required" title="This is required">*</span> What aspects of {{ assignment.title }} interest you?</label>
+            <textarea class="form-control" rows="3" name="answer_aspects" id="answer_aspects" placeholder="Let us know if you've been following the game and what you already know about it. Has it got any glaring issues worth investigating? Technical achievements?" required></textarea><br />
+
+            <label class="strong"><span class="help" title="If you have previously applied and been selected for a number of other assignments you do not need to fill in this section but priority will be given to applicants who do.">How would you bring the article to standard?</span></label>
+            <textarea class="form-control" rows="3" name="answer_standard" id="answer_standard" placeholder="What part would you fill out first? How would you make sure the article is accurate?"></textarea>
+        </div>
+
+        {% if assignment.report %}
+            <input class="file" type="file" name="dxdiag" id="dxdiag" accept=".txt">
+            <label class="upload" for="dxdiag"><i class="fa fa-upload"></i> Upload DxDiag <span class="pull-right">Optional only if you have uploaded previously</span></label><br /><br />
+        {% endif %}
+
+        <label class="checkbox-small pull-left">
+            <input class="text-left" type="checkbox" name="agree_requirements" id="agree_requirements" required> I have read and understand the <a href="{{ path_for('guidelines.index') }}" target="_blank">Guidelines</a> and will adhere to them.
+        </label>
+
+        <input type="hidden" name="assignment_id" value="{{ assignment.id }}">
+        {{ csrf_fields|raw }}
+        <button style="background-color: #4D5F72" class="btn submit" type="submit" name="submit">Submit Application</button>
+    </form>
+</div>
+{% endblock %}

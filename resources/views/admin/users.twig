@@ -1,0 +1,56 @@
+{% extends 'templates/default.twig' %}
+
+{% block title %} - Users{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="bar bar-header">
+        <span class="title">Users</span>
+        <a href="{{ path_for('admin.tokens.index') }}">
+            <button class="action">Tokens</button>
+        </a>
+    </div>
+
+    <table class="table table-padded-first">
+        <thead>
+            <tr>
+                <th width="22%">Name</th>
+                <th width="35%">Email Address</th>
+                <th width="23%">Registered</th>
+                <th width="23%">Last active</th>
+                <th width="15%" class="text-right"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td height="55px">{{ user.first_name|capitalize }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><span id="registered" data-livestamp="{{ user.created_at }}"></span></td>
+                    <td>
+                        {% if user.updated_at is not null %}
+                            <span id="logged" data-livestamp="{{ user.updated_at }}"></span>
+                        {% else %}
+                            Never
+                        {% endif %}
+                    </td>
+                    <td class="text-right">
+                        {% if user.id != 1 and session.id != user.id  %}
+                            <form action="{{ path_for('admin.users.disable', {id: user.id}) }}" method="post">
+                                <input type="hidden" name="_METHOD" value="patch"/>
+                                {{ csrf_fields|raw }}
+                                <button class="btn btn-sm black{% if user.disabled %} fade{% endif %}" type="submit">Disable</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="bar bar-footer bar-pagination text-right">
+        {% include 'components/pagination/numbered.twig' with {'items': users, 'page': path_for('admin.users.index')} %}
+    </div>
+</div>
+{% endblock %}

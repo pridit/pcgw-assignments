@@ -1,0 +1,88 @@
+.bar {
+    color: white;
+	width: 100%;
+    height: 45px;
+    display: block;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+    background-color: #4D5F72;
+    padding-left: 18px;
+
+    a,
+    span a {
+        color: white;
+    	opacity: 0.5;
+    }
+
+    a:hover,
+    span a:hover {
+        opacity: 1;
+    }
+
+    span.title {
+        font-size: 1.2em;
+        line-height: 2.2em;
+        margin-top: 3px;
+        float: left;
+    }
+
+    span.title-addendum {
+        font-size: 0.8em;
+        line-height: 3.9em;
+        margin-right: 18px;
+    }
+
+    &.bar-header {
+        text-align: right;
+    }
+
+    &.bar-footer {
+        height: 32px;
+
+        span {
+            line-height: 2.8em;
+        }
+    }
+
+    &.bar-actionable {
+        padding-left: 0;
+
+        span {
+            margin-left: 15px;
+        }
+    }
+
+    &.bar-pagination {
+        font-size: 0.8em;
+        line-height: 2.8em;
+        text-align: right;
+
+        a:not(:last-child) {
+            margin-right: -2px;
+        }
+
+        button.bar-button {
+            height: 32px;
+            font-size: 1.2em;
+            background-color: $primary-color;
+            padding: 0;
+            width: 35px;
+
+            &.active {
+                background-color: $wiki-color;
+            }
+        }
+    }
+
+    button.bar-button {
+        font-size: 0.9em;
+        padding: 0 15px 0 15px;
+        height: 45px;
+        border: none;
+        background-color: $button-light;
+    }
+}
+
+.bar-header:not(:first-child) {
+    margin-top: 25px;
+}

@@ -1,0 +1,25 @@
+<?php
+
+$authenticated = function ($request, $response, $next) {
+    if ($this->session->exists('user') && \App\User::active()->find($this->session->get('user')->id)) {
+        return $next($request, $response);
+    }
+
+    if ($this->session->exists('user')) {
+        return $response->withHeader('Location', $this->router->pathFor('users.logout'));
+    }
+
+    return $response->withHeader('Location', $this->router->pathFor('home'));
+};
+
+$mediawiki = function ($request, $response, $next) {
+    if ($this->mediawiki->user()) {
+        return $next($request, $response);
+    }
+
+    $this->logger->warning('Unauthenticated with MediaWiki', $this->cookie->get()->toArray());
+
+    $this->flash->addMessage('mediawiki', true);
+
+    return $response->withHeader('Location', $request->getHeader('HTTP_REFERER'));
+};

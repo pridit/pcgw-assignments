@@ -1,0 +1,89 @@
+{% if flash.dxdiag %}
+    <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body modal-min">
+                    <div class="modal-header">
+                        {% include 'components/modals/title.twig' with {'title': 'DxDiag Report'} %}
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <th width="10%">Hardware</th>
+                            <th width="90%"></th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>OS</td>
+                                <td class="text-right">
+                                    {% if flash.dxdiag[0]['dxdiag']['os'] %}{{ flash.dxdiag[0]['dxdiag']['os'] }}{% endif %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>CPU</td>
+                                <td class="text-right">
+                                    {% if flash.dxdiag[0]['dxdiag']['cpu'] %}{{ flash.dxdiag[0]['dxdiag']['cpu'] }}{% endif %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>GFX</td>
+                                <td class="text-right">
+                                    {% if flash.dxdiag[0]['dxdiag']['gpu'] %}{{ flash.dxdiag[0]['dxdiag']['gpu'] }}{% endif %}
+                                    {% if flash.dxdiag[0]['dxdiag']['vram'] %} ({{ flash.dxdiag[0]['dxdiag']['vram'] }}){% endif %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>RAM</td>
+                                <td class="text-right">
+                                    {% if flash.dxdiag[0]['dxdiag']['ram'] %}{{ flash.dxdiag[0]['dxdiag']['ram'] }}{% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% if flash.dxdiag[0]['dxdiag']['directx'] %}
+                        <table class="table">
+                            <thead>
+                                <th width="10%">Software</th>
+                                <th width="90%"></th>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>DirectX</td>
+                                    <td class="text-right">
+                                        {{ flash.dxdiag[0]['dxdiag']['directx'] }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+                    {% if flash.dxdiag[0]['dxdiag']['resolution'] %}
+                        <table class="table">
+                            <thead>
+                                <th width="10%">Peripherals</th>
+                                <th width="90%"></th>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>Monitor</td>
+                                    <td class="text-right">
+                                        {{ flash.dxdiag[0]['dxdiag']['resolution'] }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#myModal').modal()
+    </script>
+{% endif %}
