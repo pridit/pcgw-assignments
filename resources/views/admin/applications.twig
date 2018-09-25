@@ -33,7 +33,7 @@
                         {{ application.answer_standard }}
                     </td>
                     <td class="text-center">
-                        <span id="applied" data-livestamp="{{ application.created_at }}"></span>
+                        <span id="applied" data-livestamp="{{ application.created_at|date }}"></span>
                     </td>
                     <td class="text-right">
                         {% if application.assign.created_at is null %}

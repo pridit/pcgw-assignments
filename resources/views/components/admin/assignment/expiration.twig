@@ -1,5 +1,5 @@
 {% if assignment.expire_at > "now"|date('Y-m-d') %}
-    <span id="expire" data-livestamp="{{ assignment.expire_at }}"></span>
+    <span id="expire" data-livestamp="{{ assignment.expire_at|date }}"></span>
 {% elseif not assignment.expire_at %}
     When assigned
 {% else %}

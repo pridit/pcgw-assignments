@@ -9,6 +9,8 @@ $container['view'] = function ($c) {
         'debug' => env('APP_DEBUG')
     ]);
 
+    $view->getEnvironment()->getExtension('Twig_Extension_Core')->setTimezone('Europe/London');
+
     $view->addExtension(new \Slim\Views\TwigExtension(
         $c['router'],
         $c['request']->getUri()

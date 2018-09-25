@@ -55,7 +55,7 @@
                             {% endif %}
                         </td>
                         <td class="text-center{{ thread.closedNotPinned ? ' faded' : '' }}">{{ thread.posts.count - 1 ?: 0 }}</td>
-                        <td class="{{ thread.closedNotPinned ? 'faded' : '' }}" style="font-size: 0.85em"><span data-livestamp="{{ thread.posts.count ? thread.posts.last.created_at : thread.created_at }}"></span></td>
+                        <td class="{{ thread.closedNotPinned ? 'faded' : '' }}" style="font-size: 0.85em"><span data-livestamp="{{ thread.posts.count ? thread.posts.last.created_at|date : thread.created_at|date }}"></span></td>
                     </tr>
                 {% endfor %}
             </tbody>
