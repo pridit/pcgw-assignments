@@ -81,6 +81,17 @@ class Thread extends Model
     }
 
     /**
+     * Threads which are considered open.
+     *
+     * @param  Illuminate\Database\Eloquent\Builder $query
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOpen($query)
+    {
+        return $query->where('is_closed', 0);
+    }
+
+    /**
      * Thread that is closed and not a stickied.
      *
      * @return bool
@@ -112,7 +123,7 @@ class Thread extends Model
     public function toggleClosed()
     {
         $this->timestamps = false;
-        
+
         return $this->update([
             'is_closed' => (1 - $this->is_closed)
         ]);
