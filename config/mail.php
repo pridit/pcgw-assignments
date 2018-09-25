@@ -11,5 +11,6 @@ return [
         ],
 
         'port' => env('MAIL_PORT'),
+        'encryption' => ENV('MAIL_ENCRYPTION', 'tls')
     ]
 ];
