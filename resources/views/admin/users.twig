@@ -27,10 +27,10 @@
                 <tr>
                     <td height="55px">{{ user.first_name|capitalize }}</td>
                     <td>{{ user.email }}</td>
-                    <td><span id="registered" data-livestamp="{{ user.created_at|date }}"></span></td>
+                    <td><span id="registered" data-livestamp="{{ user.created_at|date('U') }}"></span></td>
                     <td>
                         {% if user.updated_at is not null %}
-                            <span id="logged" data-livestamp="{{ user.updated_at|date }}"></span>
+                            <span id="logged" data-livestamp="{{ user.updated_at|date('U') }}"></span>
                         {% else %}
                             Never
                         {% endif %}

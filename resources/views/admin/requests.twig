@@ -28,7 +28,7 @@
                         <td class="ellipsis">{{ request.publisher }}</td>
                         <td>
                             {% if request.release_at is not null %}
-                                <span id="release" data-livestamp="{{ request.release_at|date }}"></span></td>
+                                <span id="release" data-livestamp="{{ request.release_at|date('U') }}"></span></td>
                             {% else %}
                                 Pre-release
                             {% endif %}
