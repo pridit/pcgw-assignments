@@ -1,4 +1,4 @@
-{% if flash.request %}
+{% if flash.request or flash['global'][0] %}
     <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
         <div style="width: 330px;" class="modal-dialog">
             <div class="modal-content">
