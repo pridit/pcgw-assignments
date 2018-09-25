@@ -38,7 +38,7 @@ class Assignment extends Model
     public function assignees()
     {
         return $this->hasManyThrough(Applicant::class, Assign::class, 'assignment_id', 'id', 'id', 'applicant_id')
-            ->where('applicants.id', '!=', 1)
+            ->where('applicants.name', '!=', 'System')
             ->orderBy('name');
     }
 

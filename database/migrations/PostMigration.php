@@ -21,7 +21,8 @@ class PostMigration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['thread_id', 'user_id']);
+            $table->index('thread_id');
+            $table->index('user_id');
         });
     }
 }

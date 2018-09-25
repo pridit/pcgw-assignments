@@ -25,7 +25,7 @@ class AssignmentController extends BaseController
     {
         $this->flash->addMessage('assignment', true);
 
-        return $response->withHeader('Location', $this->router->pathFor('home'));
+        return $response->withHeader('Location', $request->getHeader('HTTP_REFERER'));
     }
 
     public function edit(Request $request, Response $response, $args)

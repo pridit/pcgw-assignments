@@ -21,7 +21,8 @@ class ApplicationMigration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['assignment_id', 'applicant_id']);
+            $table->index('assignment_id');
+            $table->index('applicant_id');
         });
     }
 }

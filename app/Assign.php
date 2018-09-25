@@ -44,15 +44,4 @@ class Assign extends Model
     {
         return $this->hasManyThrough(Application::class, Assignment::class, 'id', 'assignment_id', 'assignment_id');
     }
-
-    /**
-     * Assigns which are not to the 'System' internal applicant.
-     *
-     * @param  Illuminate\Database\Eloquent\Builder $query
-     * @return Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeNotSystem($query)
-    {
-        return $query->where('applicant_id', '!=', 1);
-    }
 }

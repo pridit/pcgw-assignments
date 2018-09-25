@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class CreateTokenMigration
+class TokenMigration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,13 @@ class CreateTokenMigration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('hash');
-            $table->unsignedInteger('used_by');
+            $table->unsignedInteger('used_by')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['user_id', 'used_by']);
+            $table->index('user_id');
+            $table->index('used_by');
         });
     }
 }

@@ -2,7 +2,7 @@
 
 use App\Thread;
 
-class UserSeed
+class ThreadSeed
 {
     /**
      * Run the seed.
@@ -12,6 +12,7 @@ class UserSeed
     function run()
     {
         $thread = new Thread;
+        $thread->post_id = 1;
         $thread->title = "Welcome";
         $thread->slug = "welcome";
         $thread->is_pinned = 1;

@@ -20,7 +20,8 @@ class UserSettingMigration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['user_id', 'setting_id']);
+            $table->index('user_id');
+            $table->index('setting_id');
         });
     }
 }

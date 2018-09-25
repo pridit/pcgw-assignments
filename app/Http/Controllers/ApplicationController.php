@@ -49,7 +49,7 @@ class ApplicationController extends BaseController
 
                 $file = $this->dxdiag->parse($hash);
 
-                $this->updateOrCreate(['applicant_id' => $applicant->id], [
+                Dxdiag::updateOrCreate(['applicant_id' => $applicant->id], [
                     'os' => isset($file['Operating System']) ? $file['Operating System'] : NULL,
                     'cpu' => isset($file['Processor']) ? $file['Processor'] : NULL,
                     'gpu' => isset($file['Card name']) ? $file['Card name'] : NULL,

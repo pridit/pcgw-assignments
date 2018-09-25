@@ -19,7 +19,9 @@ class AssignMigration
 
             $table->timestamps();
 
-            $table->index(['assignment_id', 'applicant_id', 'assigned_by']);
+            $table->index('assignment_id');
+            $table->index('applicant_id');
+            $table->index('assigned_by');
         });
     }
 }

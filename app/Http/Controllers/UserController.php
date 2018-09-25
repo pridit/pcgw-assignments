@@ -17,6 +17,7 @@ class UserController extends BaseController
         $user = User::create([
             'first_name' => $request->getParam('first_name'),
             'last_name' => $request->getParam('last_name'),
+            'username' => $request->getParam('username'),
             'password' => $this->hash->password($request->getParam('password')),
             'email' => $request->getParam('email')
         ]);
