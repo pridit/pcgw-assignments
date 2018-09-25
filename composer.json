@@ -25,7 +25,6 @@
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
-        "phpunit/phpunit": "^7.0",
         "larapack/dd": "1.*"
     },
     "autoload": {
