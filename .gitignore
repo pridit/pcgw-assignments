@@ -1,4 +1,8 @@
 # Directories
+public/css
+public/images
+public/js
+storage
 vendor
 
 # Third-party
