@@ -16,7 +16,7 @@ class ApplicationMigration
             $table->unsignedInteger('assignment_id');
             $table->unsignedInteger('applicant_id');
             $table->text('answer_aspects');
-            $table->text('answer_standard');
+            $table->text('answer_standard')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
