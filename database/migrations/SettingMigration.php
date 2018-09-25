@@ -14,8 +14,8 @@ class SettingMigration
         Capsule::schema()->create('settings', function($table) {
             $table->increments('id');
             $table->unsignedInteger('type_id');
-            $table->string('key');
-            $table->string('name');
+            $table->string('key', 191);
+            $table->string('name', 191);
 
             $table->timestamps();
             $table->softDeletes();

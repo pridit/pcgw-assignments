@@ -14,13 +14,13 @@ class DxdiagMigration
         Capsule::schema()->create('dxdiags', function($table) {
             $table->increments('id');
             $table->unsignedInteger('applicant_id');
-            $table->string('os')->nullable();
-            $table->string('cpu')->nullable();
-            $table->string('gpu')->nullable();
-            $table->string('vram')->nullable();
-            $table->string('ram')->nullable();
-            $table->string('directx')->nullable();
-            $table->string('resolution')->nullable();
+            $table->string('os', 191)->nullable();
+            $table->string('cpu', 191)->nullable();
+            $table->string('gpu', 191)->nullable();
+            $table->string('vram', 191)->nullable();
+            $table->string('ram', 191)->nullable();
+            $table->string('directx', 191)->nullable();
+            $table->string('resolution', 191)->nullable();
 
             $table->timestamps();
             $table->softDeletes();

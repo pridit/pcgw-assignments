@@ -14,7 +14,7 @@ class TokenMigration
         Capsule::schema()->create('tokens', function($table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->string('hash');
+            $table->string('hash', 191);
             $table->unsignedInteger('used_by')->nullable();
 
             $table->timestamps();

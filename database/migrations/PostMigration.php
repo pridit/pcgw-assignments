@@ -15,7 +15,7 @@ class PostMigration
             $table->increments('id');
             $table->unsignedInteger('thread_id');
             $table->unsignedInteger('user_id')->nullable();
-            $table->string('author')->nullable();
+            $table->string('author', 191)->nullable();
             $table->text('body');
 
             $table->timestamps();

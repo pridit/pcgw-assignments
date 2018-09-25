@@ -13,9 +13,9 @@ class RequestMigration
     {
         Capsule::schema()->create('requests', function($table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('developer')->nullable();
-            $table->string('publisher')->nullable();
+            $table->string('title', 191);
+            $table->string('developer', 191)->nullable();
+            $table->string('publisher', 191)->nullable();
             $table->date('release_at')->nullable();
 
             $table->timestamps();

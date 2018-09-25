@@ -13,7 +13,7 @@ class ApplicantMigration
     {
         Capsule::schema()->create('applicants', function($table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name', 191);
             $table->tinyInteger('blacklisted')->default(0);
 
             $table->timestamps();

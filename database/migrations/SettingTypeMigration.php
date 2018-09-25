@@ -13,7 +13,7 @@ class SettingTypeMigration
     {
         Capsule::schema()->create('setting_types', function($table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name', 191);
 
             $table->timestamps();
             $table->softDeletes();

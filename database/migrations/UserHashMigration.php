@@ -14,8 +14,8 @@ class UserHashMigration
         Capsule::schema()->create('user_hash', function($table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->string('type');
-            $table->string('hash');
+            $table->string('type', 191);
+            $table->string('hash', 191);
             $table->dateTime('expire_at');
 
             $table->timestamps();
