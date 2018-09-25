@@ -20,7 +20,7 @@ class PostController extends BaseController
         if (!$thread) {
             $this->flash->addMessage('alert', ['error', 'Error', 'You cannot post to a closed thread.']);
 
-            return $response->withHeader('Location', $this->router->pathFor('discussions.show', ['id' => $thread->id, 'slug' => $thread->slug])););
+            return $response->withHeader('Location', $request->getHeader('HTTP_REFERER'));
         }
 
         $this->flash->addMessage('post', ['thread' => $thread]);
