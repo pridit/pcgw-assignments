@@ -17,7 +17,7 @@
                 <span class="label label-default label-avatar text-center">Guest</span>
             {% endif %}
         </td>
-        <td style="vertical-align:top; padding-top: 9px; padding-bottom: 10px; padding-left: 10px" width="79%">{{ post.body|nl2br }}</td>
+        <td style="vertical-align:top; padding-top: 9px; padding-bottom: 10px; padding-left: 10px" width="78%">{{ post.body|nl2br }}</td>
         <td style="vertical-align:top; padding-top: 12px; font-size: 0.8em; color: #666" width="20%" class="text-center">
             {% if session and post.id != post.thread.post_id %}
                 <form style="float: left" action="{{ path_for('admin.posts.destroy', {id: post.id}) }}" method="post">
