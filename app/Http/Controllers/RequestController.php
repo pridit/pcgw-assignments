@@ -14,8 +14,9 @@ class RequestController extends BaseController
     public function create(Request $request, Response $response, $args)
     {
         $this->flash->addMessage('request', true);
+        $this->flash->addMessage('global', 'hello');
 
-        return $response->withStatus(302)->withHeader('Location', $this->router->pathFor('home'));
+        return $response->withHeader('Location', $this->router->pathFor('home'));
     }
 
     public function store(Request $request, Response $response, $args)
@@ -34,6 +35,6 @@ class RequestController extends BaseController
 
         $this->flash->addMessage('alert', ['success', 'Successful', 'Your request has been submitted.']);
 
-        return $response->withStatus(302)-withHeader('Location', $this->router->pathFor('home'));
+        return $response->withHeader('Location', $this->router->pathFor('home'));
     }
 }
