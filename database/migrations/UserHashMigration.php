@@ -16,6 +16,7 @@ class UserHashMigration
             $table->unsignedInteger('user_id');
             $table->string('type');
             $table->string('hash');
+            $table->dateTime('expire_at');
 
             $table->timestamps();
             $table->softDeletes();
