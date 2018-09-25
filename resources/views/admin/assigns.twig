@@ -39,7 +39,9 @@
                     </td>
 
                     <td class="text-center">
-                        {{ assign.applicant.applications.count ?: '' }}
+                        {% if assign.applicant.applications.count %}
+                            <a href="{{ path_for('admin.applicants.applied', {'id': assign.applicant.id}) }}">{{ assign.applicant.applications.count }}</a>
+                        {% endif %}
                     </td>
 
                     <td class="text-center">
