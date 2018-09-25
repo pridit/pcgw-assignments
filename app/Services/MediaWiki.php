@@ -11,9 +11,10 @@ class MediaWiki
 {
     protected $cookies;
 
-    public function __construct($cookies)
+    public function __construct($cookies, $logger)
     {
         $this->cookies = $cookies;
+        $this->logger = $logger;
     }
 
     /**
@@ -54,6 +55,8 @@ class MediaWiki
         if (isset($userinfo->anon)) {
             return false;
         }
+
+        $this->logger->info(sprintf('Authenticated with MediaWiki: %s', $userinfo->name));
 
         $session->set('mediawiki', $userinfo);
 

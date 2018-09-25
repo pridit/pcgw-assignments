@@ -76,7 +76,7 @@ $container['igdb'] = function ($c) {
 };
 
 $container['mediawiki'] = function ($c) {
-    return new App\Services\MediaWiki($c['view']->getEnvironment()->getGlobals()['cookie']);
+    return new App\Services\MediaWiki($c['view']->getEnvironment()->getGlobals()['cookie'], $c['logger']);
 };
 
 /*
