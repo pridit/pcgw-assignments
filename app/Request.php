@@ -15,6 +15,6 @@ class Request extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'title', 'developer', 'publisher', 'release_at'
+        'title', 'developer', 'publisher', 'release_at'
     ];
 }

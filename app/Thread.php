@@ -33,7 +33,7 @@ class Thread extends Model
     /**
      * A thread has an original post.
      *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function original()
     {
@@ -94,7 +94,7 @@ class Thread extends Model
     /**
      * Thread that is closed and not a stickied.
      *
-     * @return bool
+     * @return boolean
      */
     public function getClosedNotPinnedAttribute()
     {
@@ -104,7 +104,7 @@ class Thread extends Model
     /**
      * Toggle pinning of a thread to increase prominence.
      *
-     * @return mixed
+     * @return boolean
      */
     public function togglePinned()
     {
@@ -118,7 +118,7 @@ class Thread extends Model
     /**
      * Toggle closing of a thread to prevent further replies.
      *
-     * @return mixed
+     * @return boolean
      */
     public function toggleClosed()
     {

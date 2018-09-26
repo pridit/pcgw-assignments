@@ -8,7 +8,7 @@ class Dxdiag
      * Parse the dxdiag from file into an array.
      *
      * @param  string $hash
-     * @return array
+     * @return array|boolean
      */
     public function parse($hash)
     {

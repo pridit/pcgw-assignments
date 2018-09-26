@@ -21,7 +21,7 @@ class SettingType extends Model
     /**
      * A setting type has many settings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function settings()
     {

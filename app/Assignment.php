@@ -120,7 +120,7 @@ class Assignment extends Model
     /**
      * Toggle the open state of an assignment.
      *
-     * @return mixed
+     * @return boolean
      */
     public function toggleOpen()
     {
@@ -132,7 +132,7 @@ class Assignment extends Model
     /**
      * Toggle the completion of an assignment (standard reached).
      *
-     * @return mixed
+     * @return boolean
      */
     public function toggleComplete()
     {

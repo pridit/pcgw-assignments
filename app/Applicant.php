@@ -75,7 +75,7 @@ class Applicant extends Model
     /**
      * Toggle blacklisting of an applicant to restrict their usage.
      *
-     * @return mixed
+     * @return boolean
      */
     public function toggleBlacklist()
     {

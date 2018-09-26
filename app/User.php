@@ -75,7 +75,7 @@ class User extends Model
     /**
      * Toggle disabling of user to restrict access.
      *
-     * @return mixed
+     * @return boolean
      */
     public function toggleDisabled()
     {

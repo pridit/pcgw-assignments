@@ -18,7 +18,7 @@ class Assign extends Model
     /**
      * An assign belongs to an applicant.
      *
-     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function applicant()
     {
@@ -28,7 +28,7 @@ class Assign extends Model
     /**
      * An assign belongs to an assignment.
      *
-     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function assignment()
     {
@@ -38,7 +38,7 @@ class Assign extends Model
     /**
      * An assign has many applications via assignment.
      *
-     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     * @return Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function applications()
     {
