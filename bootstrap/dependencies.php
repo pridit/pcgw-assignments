@@ -130,8 +130,12 @@ $container['notFoundHandler'] = function ($c) {
 |--------------------------------------------------------------------------
 */
 
-$container['csrf'] = function () {
-    return new Slim\Csrf\Guard;
+$container['csrf'] = function ($c) {
+    $csrf = new Slim\Csrf\Guard;
+
+    $csrf->setPersistentTokenMode(true);
+
+    return $csrf;
 };
 
 $container['flash'] = function () {
