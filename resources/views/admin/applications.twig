@@ -22,7 +22,7 @@
         </thead>
         <tbody>
             {% for application in assignment.applications if assignment.applications is not empty %}
-                <tr {% if application.assign.created_at is not null %}class="picked"{% endif %}>
+                <tr {% if application.assign.first is not null %}class="picked"{% endif %}>
                     <td height="80px">
                         {% include 'components/applicant.twig' with {applicant: application.applicant} %}
                     </td>
@@ -36,7 +36,7 @@
                         <span id="applied" data-livestamp="{{ application.created_at|date('U') }}"></span>
                     </td>
                     <td class="text-right">
-                        {% if application.assign.created_at is null %}
+                        {% if application.assign.first is null %}
                             <form class="actions" action="{{ path_for('admin.applications.destroy', {id: application.id}) }}" method="post">
                                 <input type="hidden" name="_METHOD" value="delete" />
                                 {{ csrf_fields|raw }}
