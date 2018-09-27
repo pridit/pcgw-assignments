@@ -11,12 +11,12 @@
 
     {% if applicant.assigns is not empty %}
         <div class="content">
-            <table class="table table-row sortable">
+            <table class="table table-row table-row-min sortable">
                 <thead>
                     <tr>
-                        <th width="21%" class="sorttable_nosort"></th>
+                        <th width="16%" class="sorttable_nosort"></th>
                         <th width="11%" class="sorttable_nosort"></th>
-                        <th style="cursor: pointer" width="41%" class="unselectable">Title</th>
+                        <th style="cursor: pointer" width="50%" class="unselectable">Title</th>
                         <th style="cursor: pointer" width="4%" class="text-center unselectable">Standard</th>
                         <th class="sorttable_nosort text-right"></th>
                     </tr>
@@ -26,7 +26,7 @@
                     {% for assign in applicant.assigns %}
                         <tr>
                             <td>
-                                <img id="logo{{ loop.index }}" width="170" src="{{ assign.assignment.app_id ? path.cover.cdn ~ assign.assignment.app_id|e ~ path.cover.header : path_for('home') ~ 'images/missing.jpg' }}" onerror="replace({{ loop.index }})">
+                                <img id="logo{{ loop.index }}" src="{{ assign.assignment.app_id ? path.cover.cdn ~ assign.assignment.app_id|e ~ path.cover.capsule : path_for('home') ~ 'images/missing_sm.jpg' }}" onerror="replace({{ loop.index }})">
 
                             </td>
                             <td>
@@ -94,7 +94,7 @@
     }(jQuery));
 
     function replace(id) {
-        $('img#logo'+id).attr("src", "{{ path_for('home') }}images/missing.jpg");
+        $('img#logo'+id).attr("src", "{{ path_for('home') }}images/missing_sm.jpg");
     }
 </script>
 

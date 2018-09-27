@@ -9,7 +9,7 @@
     </div>
 
     {% if assignments is not empty %}
-        <table class="table table-assigned table-row">
+        <table class="table table-assigned table-row table-row-min">
             <thead>
                 <tr>
                     <th width="16%"></th>
@@ -24,7 +24,7 @@
                     {% for assignee in assignment.assignees %}
                         <tr>
                             <td>
-                                <img id="logo{{ loop.index }}" style="height: 45px" src="{% if assignment.app_id %}{{ path.cover.cdn ~ assignment.app_id|e ~ path.cover.capsule }}{% else %}{{ path_for('home') }}images/missing_sm.jpg{% endif %}" onerror="replace({{ loop.index }})">
+                                <img id="logo{{ loop.index }}" src="{% if assignment.app_id %}{{ path.cover.cdn ~ assignment.app_id|e ~ path.cover.capsule }}{% else %}{{ path_for('home') }}images/missing_sm.jpg{% endif %}" onerror="replace({{ loop.index }})">
                             </td>
                             <td>
                                 {% include 'components/assignment/wiki.twig' %}
