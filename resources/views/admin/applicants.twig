@@ -25,7 +25,7 @@
                 <tbody>
                     {% for applicant in applicants %}
                     <tr>
-                        <td>{{ loop.index + pagination.index }}</td>
+                        <td>{{ loop.index + (applicants.firstItem() - 1) }}</td>
                         <td height="55px">
                             {% if applicant.name != 'System' %}
                                 {% include 'components/applicant.twig' %}
