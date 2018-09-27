@@ -1,14 +1,14 @@
 <?php
 
-use App\Helpers\IGDB;
 use App\Helpers\Cache;
+use App\Services\IGDB;
 
 use Crunz\Schedule;
 
 $dotenv = new Dotenv\Dotenv(__DIR__ . '/../../');
 $dotenv->load();
 
-$config = new \Noodlehaus\Config(dirname(__DIR__) . '/../config/api.php');
+$config = new \Noodlehaus\Config(dirname(__DIR__) . '/../config');
 
 $schedule = new Schedule();
 
@@ -22,6 +22,7 @@ $schedule->run(function () use ($config) {
     $igdb = $igdb->gamesSearch([
         'fields'                                => implode($config->get('api.igdb.parameters.fields'), ','),
         'filter[first_release_date][gte]'       => date('Y-m-d'),
+        'filter[first_release_date][not_eq]'    => date('Y-m-t'),
         'filter[first_release_date][lt]'        => date('Y-m-t', strtotime('+2 months')),
         'filter[release_dates.platform][eq]'    => $config->get('api.igdb.parameters.platform'),
         'filter[release_dates.region][eq]'      => $config->get('api.igdb.parameters.region')[0],
