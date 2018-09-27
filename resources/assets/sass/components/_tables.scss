@@ -41,7 +41,10 @@
         > tbody > tr > td > img {
             margin-top: -1px;
         }
-        
+
+        &.table-row-min > tbody > tr > td > img {
+            width: 120px;
+        }
     }
 
     &.table-highlight {
