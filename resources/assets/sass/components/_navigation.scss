@@ -5,17 +5,17 @@
 
 .navbar {
     width: 100%;
-	z-index: 1;
+    z-index: 1;
     position: fixed;
     border-radius: 0;
     background-color: $brand-color;
 
     ul.nav {
         > li > a {
-        	color: white;
-        	opacity: 0.6;
+            color: white;
+            opacity: 0.6;
             font-size: 12pt;
-        	background-color: $brand-color;
+            background-color: $brand-color;
         }
 
         > li {
@@ -26,7 +26,7 @@
             }
 
             > a:hover {
-            	opacity: 1;
+                opacity: 1;
                 text-decoration: none;
                 background-color: $brand-color;
             }
@@ -43,6 +43,6 @@
     a:focus,
     a:hover {
         background-color: #446CB3;
-    	opacity: 1;
+        opacity: 1;
     }
 }

@@ -1,20 +1,20 @@
 .dropdown-menu {
-	width: 200px;
+    width: 200px;
     padding: 15px 15px 6px 15px;
 
     &.dropdown-links {
         width: 160px;
-    	padding: 5px 0;
+        padding: 5px 0;
     }
 
     > form {
         > a > .fa-stack-1x {
             text-align: right;
-        	padding-right: 20px;
+            padding-right: 20px;
         }
 
         > input {
-        	width: 100%;
+            width: 100%;
             border-radius: 0;
             margin-bottom: 8px;
 
@@ -24,18 +24,18 @@
         }
 
         > label {
-        	width: 80%;
+            width: 80%;
             position: absolute;
 
             .fa {
-            	right: 0;
+                right: 0;
                 cursor: help;
                 position: absolute;
-            	margin-top: 10px;
+                margin-top: 10px;
             }
 
             .fa-exclamation-circle {
-            	color: red;
+                color: red;
             }
         }
     }

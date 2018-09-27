@@ -6,13 +6,13 @@ input {
         margin-left: 6px;
         margin-top: 2px;
         padding: 0;
-    	font-family: FontAwesome;
+        font-family: FontAwesome;
         background-color: #fff;
     }
 
     &.modify {
         position: absolute;
-    	color: #C48E48;
+        color: #C48E48;
     }
 
     &.lock {
@@ -30,19 +30,19 @@ input {
     }
 
     &.file {
-    	width: 0.1px;
-    	height: 0.1px;
-    	opacity: 0;
-    	overflow: hidden;
-    	position: absolute;
-    	z-index: -1;
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
 
         + label {
             cursor: pointer;
             color: white;
-        	padding: 10px;
+            padding: 10px;
             background-color: #4F6CA5;
-        	width: 100%;
+            width: 100%;
         }
     }
 

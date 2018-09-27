@@ -1,26 +1,26 @@
 .notice {
     width: 100%;
     color: white;
-	display: table;
-	background-color: #6e869d;
+    display: table;
+    background-color: #6e869d;
 
     span.icon {
         float: left;
         height: 100%;
         padding: 5px 25px 5px 25px;
         font-size: 3em;
-    	font-family: FontAwesome;
+        font-family: FontAwesome;
         background-color: $secondary-color;
     }
 
     span.icon:before {
-    	content: "\f128";
+        content: "\f128";
     }
 
     p {
         width: inherit;
-    	display: table-cell;
+        display: table-cell;
         padding: 0 20px 0 20px;
-    	vertical-align: middle;
+        vertical-align: middle;
     }
 }

@@ -1,111 +1,111 @@
 @media(min-width:768px) {
-	.container-fluid {
-		max-width: 1000px;
-	}
+    .container-fluid {
+        max-width: 1000px;
+    }
 }
 
 @media(max-width:768px) {
-	.container-fluid {
-		min-width: 315px;
-	}
+    .container-fluid {
+        min-width: 315px;
+    }
 
-	ul.nav > li > a {
-		text-align: center;
-	}
+    ul.nav > li > a {
+        text-align: center;
+    }
 
-	img.logo, img.review-codes {
-		height: 100px;
-	}
+    img.logo, img.review-codes {
+        height: 100px;
+    }
 
-	button.navbar-toggle {
-		padding: 4px 4px;
-		color: #DDD;
-	}
+    button.navbar-toggle {
+        padding: 4px 4px;
+        color: #DDD;
+    }
 
-	div.navbar-collapse > ul.navbar-right {
-		display: none;
-	}
+    div.navbar-collapse > ul.navbar-right {
+        display: none;
+    }
 
-	div.bar-header > span.title-addendum {
-		display: none;
-	}
+    div.bar-header > span.title-addendum {
+        display: none;
+    }
 
-	div.bar-footer > span.notice {
-		font-size: 0.9em;
-	}
+    div.bar-footer > span.notice {
+        font-size: 0.9em;
+    }
 
-	table.table-row > thead > tr > th:nth-child(2) {
-		display: none;
-	}
+    table.table-row > thead > tr > th:nth-child(2) {
+        display: none;
+    }
 
-	table.table-row > tbody > tr > td:nth-child(2) {
-		display: none;
-	}
+    table.table-row > tbody > tr > td:nth-child(2) {
+        display: none;
+    }
 
-	table.table-upcoming > thead > tr > th:nth-child(1) {
-		width: 30%;
-	}
+    table.table-upcoming > thead > tr > th:nth-child(1) {
+        width: 30%;
+    }
 
-	table.table-row > tbody > tr > td > img {
-		width: 80%;
-	}
+    table.table-row > tbody > tr > td > img {
+        width: 80%;
+    }
 
-	table.table-highlight > tbody > tr > td {
-		padding-top: 14px;
-		padding-bottom: 14px;
-	}
+    table.table-highlight > tbody > tr > td {
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
 
-	table.table-upcoming > thead > tr > th:nth-child(3), table.table-upcoming > thead > tr > th:nth-child(4) {
-		display: none;
-	}
+    table.table-upcoming > thead > tr > th:nth-child(3), table.table-upcoming > thead > tr > th:nth-child(4) {
+        display: none;
+    }
 
-	table.table-upcoming > tbody > tr > td:nth-child(3), table.table-upcoming > tbody > tr > td:nth-child(4) {
-		display: none;
-	}
+    table.table-upcoming > tbody > tr > td:nth-child(3), table.table-upcoming > tbody > tr > td:nth-child(4) {
+        display: none;
+    }
 }
 
 @media(max-width:479px) {
-	form > label.upload > span.pull-right {
-		display: none;
-	}
+    form > label.upload > span.pull-right {
+        display: none;
+    }
 
-	input.checkbox + label:before, input.checkbox:checked + label:before {
-		top: 10px;
-	}
+    input.checkbox + label:before, input.checkbox:checked + label:before {
+        top: 10px;
+    }
 
-	button.submit {
-		display: block;
-		width: 100%;
-		padding-top: 15px;
-		padding-bottom: 15px;
-		border-radius: 0;
-	}
+    button.submit {
+        display: block;
+        width: 100%;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-radius: 0;
+    }
 }
 
 @media(max-width:410px) {
-	table.table-row > thead > tr > th:nth-child(1) {
-		display: none;
-	}
+    table.table-row > thead > tr > th:nth-child(1) {
+        display: none;
+    }
 
-	table.table-row > tbody > tr > td:nth-child(1) {
-		display: none;
-	}
+    table.table-row > tbody > tr > td:nth-child(1) {
+        display: none;
+    }
 
-	table.table-row > thead > tr > th:nth-child(3), table.table-row > tbody > tr > td:nth-child(3) {
-		padding-left: 12px;
-	}
+    table.table-row > thead > tr > th:nth-child(3), table.table-row > tbody > tr > td:nth-child(3) {
+        padding-left: 12px;
+    }
 
-	table.table-applications > tbody > tr > td {
-		padding-top: 12px;
-		padding-bottom: 12px;
-	}
+    table.table-applications > tbody > tr > td {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
 
-	table.table-assigned > thead > tr > th:nth-child(4), table.table-assigned > tbody > tr > td:nth-child(4) {
-		padding-right: 12px;
-		text-align: right;
-	}
+    table.table-assigned > thead > tr > th:nth-child(4), table.table-assigned > tbody > tr > td:nth-child(4) {
+        padding-right: 12px;
+        text-align: right;
+    }
 
-	.fa-unreleased {
-		display: none;
-	}
+    .fa-unreleased {
+        display: none;
+    }
 }

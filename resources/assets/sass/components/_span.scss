@@ -11,14 +11,14 @@ span {
     &.right {
         float: right;
         font-size: 0.6em;
-    	line-height: 2.6em;
+        line-height: 2.6em;
     }
 
     &.article {
         color: white;
         padding: 9px;
-    	font-weight: bold;
-    	margin-right: 4px;
+        font-weight: bold;
+        margin-right: 4px;
         background-color: #2cc36b;
 
         &:before {
@@ -29,7 +29,7 @@ span {
     &.report {
         color: white;
         padding: 9px;
-    	font-weight: bold;
+        font-weight: bold;
         margin-right: 4px;
         padding-left: 9.5px;
         padding-right: 9.5px;
@@ -43,7 +43,7 @@ span {
     &.sm {
         padding: 5px;
         font-size: 1em;
-    	margin-right: 2px;
+        margin-right: 2px;
     }
 
     &.fade {
@@ -55,11 +55,11 @@ span {
     }
 
     &.count {
-    	background-color: #9E9554;
-    	padding-left: 4px;
-    	padding-right: 4px;
-    	color: white;
-    	margin-left: 4px;
+        background-color: #9E9554;
+        padding-left: 4px;
+        padding-right: 4px;
+        color: white;
+        margin-left: 4px;
     }
 
     &.highlight { font-weight: bold; text-shadow: 1px 1px #576c81; }
