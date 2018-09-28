@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="description" content="PCGamingWiki network platform for PC video game review code allocation to contributors in exchange for completing a wiki page and/or writing a technical report" />
+
+    <link rel="icon" type="image/x-icon" href="{{ path_for('home') }}images/favicon.png">
+    <title>PCGamingWiki Assignments{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ path_for('home') }}css/vendor.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ path_for('home') }}css/app.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111705067-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-111705067-1');
+    </script>
+</head>
+
+<body>
+
+{% include 'templates/popups/alert.twig' %}
+
+{% block content %}{% endblock %}
+
+
+</body>
+</html>

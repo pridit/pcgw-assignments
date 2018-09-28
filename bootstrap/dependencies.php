@@ -124,6 +124,14 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
+$container['phpErrorHandler'] = function ($c) {
+    return function ($request, $response, $exception) use ($c) {
+        $c['logger']->error($request->getUri(), [$exception]);
+        
+        return $c['view']->render($response, 'templates/errors/500.twig')->withStatus(500);
+    };
+};
+
 /*
 |--------------------------------------------------------------------------
 | Dependency Containers - Third-party

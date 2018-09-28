@@ -1,0 +1,13 @@
+{% extends 'templates/minimal.twig' %}
+
+{% block title %} - Internal Error{% endblock %}
+
+{% block content %}
+    <div class="not-found">
+        <div class="container-fluid text-center">
+            <h1>System Error</h1>
+            <p>pcgamingwiki.exe has stopped working</p>
+            <img class="error" src="{{ path_for('home') }}images/404.jpg">
+        </div>
+    </div>
+{% endblock %}
