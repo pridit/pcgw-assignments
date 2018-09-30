@@ -65,8 +65,9 @@
 
         <div class="bar bar-footer"></div>
     {% else %}
-        <div class="well text-center">
-            Unfortunately, we have no available assignments at the moment.<br /><br />Please check back another time.
+        <div class="image">
+            <img src="{{ path_for('home') }}images/example-assignments.png" />
+            <p class="text-center">We have no available assignments at the moment</p>
         </div>
     {% endif %}
 

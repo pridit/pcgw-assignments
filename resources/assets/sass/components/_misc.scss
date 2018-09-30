@@ -15,6 +15,34 @@ body {
     padding-bottom: 40px;
 }
 
+.image {
+    position: relative;
+    
+    img {
+        opacity: 0.4;
+        
+        font-family: 'Open Sans', sans-serif;
+        
+        -webkit-filter: blur(0.2rem);
+        -moz-filter: blur(0.2rem);
+        -o-filter: blur(0.2rem);
+        -ms-filter: blur(0.2rem);
+        filter: blur(0.2rem);
+        
+        -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+    }
+    
+    p {
+        position: absolute; 
+        width: 100%; 
+        top: 60px;
+        font-size: 1.4em;
+        color: #333;
+        text-shadow: 1px 1px #ddd;
+    }
+}
+
 div.not-found {
     height: 90%;
     display: flex;
