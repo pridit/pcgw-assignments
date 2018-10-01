@@ -40,7 +40,7 @@ class ThreadController extends BaseController
 
         $post = Post::create([
             'thread_id' => $thread->id,
-            'author' => $this->mediawiki->user()->name,
+            'author' => $this->session->get('mediawiki')->name,
             'body' => $request->getParam('body')
         ]);
 

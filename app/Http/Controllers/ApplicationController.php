@@ -20,7 +20,7 @@ class ApplicationController extends BaseController
         $assignment = $request->getParam('assignment_id');
 
         $applicant = Applicant::firstOrCreate([
-            'name' => $this->mediawiki->user()->name
+            'name' => $this->session->get('mediawiki')->name
         ]);
 
         if ($applicant->blacklisted) {

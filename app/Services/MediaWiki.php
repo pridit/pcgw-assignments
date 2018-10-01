@@ -9,57 +9,107 @@ use SlimSession\Helper;
 
 class MediaWiki
 {
+    protected $client;
     protected $cookies;
+    protected $logger;
 
     public function __construct($cookies, $logger)
     {
+        $this->client = new Client();
+        
         $this->cookies = $cookies;
         $this->logger = $logger;
     }
 
     /**
-     * Send a request to the MediaWiki API with relevant cookies.
+     * Send a request to the MediaWiki API.
      *
-     * @return \GuzzleHttp\Psr7\Response
+     * @param array $params
+     * @return object
      */
-    protected function request()
+    protected function request($query, $cookies = null)
     {
-        $client = new Client();
-
-        return $client->request('GET', 'https://pcgamingwiki.com/w/api.php', [
-            'query' => ['action' => 'query', 'meta' => 'userinfo', 'format' => 'json'],
-            'cookies' => CookieJar::fromArray($this->cookies->toArray(), '.pcgamingwiki.com')
+        $query['action'] = 'query';
+        $query['format'] = 'json';
+        
+        $response = $this->client->request('GET', 'https://pcgamingwiki.com/w/api.php', [
+            'query' => $query,
+            'cookies' => $cookies ?: ''
         ]);
+        
+        $content = json_decode($response->getBody()->getContents());
+        
+        return $content->query;
     }
 
     /**
-     * Get the user object associated with the JSON response of the request.
+     * Authenticate given user based on cookies.
      *
      * @return boolean|object
      */
-    public function user()
+    public function authenticate()
     {
         $session = new Helper;
-
+        
         if ($session->exists('mediawiki')) {
             return $session->get('mediawiki');
         }
-
+        
         if ($this->cookies->isEmpty()) {
             return false;
         }
-
-        $response = json_decode($this::request()->getBody()->getContents());
-        $userinfo = $response->query->userinfo;
+        
+        $response = self::request(
+            ['meta' => 'userinfo'],
+            CookieJar::fromArray($this->cookies->toArray(), '.pcgamingwiki.com')
+        );
+        
+        $userinfo = $response->userinfo;
 
         if (isset($userinfo->anon)) {
             return false;
         }
+        
+        $user = $this->user($userinfo->name);
 
-        $this->logger->info(sprintf('Authenticated with MediaWiki: %s', $userinfo->name));
+        if (isset($user->blockid)) {
+            return false;
+        }
 
-        $session->set('mediawiki', $userinfo);
+        $this->logger->info(sprintf('Authenticated with MediaWiki: %s', $user->name));
+        
+        $session->set('mediawiki', $user);
 
         return $session->get('mediawiki');
+    }
+
+    /**
+     * Retrieve the data for a user.
+     *
+     * @param string $user
+     * @return boolean|object
+     */
+    public function user($name) {
+        $response = self::request([
+            'list' => 'users',
+            'ususers' => $name,
+            'usprop' => 'editcount|registration|blockinfo'
+        ]);
+        
+        $user = $response->users[0];
+        
+        return !isset($user->missing) ? $user : false;
+    }
+    
+    /**
+     * Determine whether an article exists for a page.
+     *
+     * @param  string $name
+     * @return boolean
+     */
+    public function isArticle($name) {
+        $response = self::request(['titles' => $name]);
+        
+        return !isset(current($response->pages)->missing);
     }
 }

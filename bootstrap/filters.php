@@ -13,7 +13,7 @@ $authenticated = function ($request, $response, $next) {
 };
 
 $mediawiki = function ($request, $response, $next) {
-    if ($this->mediawiki->user()) {
+    if ($this->mediawiki->authenticate()) {        
         return $next($request, $response);
     }
 

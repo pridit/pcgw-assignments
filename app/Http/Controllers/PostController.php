@@ -41,7 +41,7 @@ class PostController extends BaseController
         $post = Post::create([
             'thread_id' => $thread->id,
             'body' => $request->getParam('body'),
-            'author' => $this->mediawiki->user()->name
+            'author' => $this->session->get('mediawiki')->name
         ]);
 
         if ($this->session->get('user')) {
