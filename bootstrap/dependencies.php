@@ -28,6 +28,7 @@ $container['view'] = function ($c) {
     $view->getEnvironment()->addGlobal('count', [
       'applicants' => App\Applicant::count(),
       'assignments' => App\Assignment::count(),
+      'assigns' => App\Assign::count(),
       'requests' => App\Request::count(),
       'users' => App\User::count(),
     ]);
