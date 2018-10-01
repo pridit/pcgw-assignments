@@ -6,7 +6,7 @@
     </form>
 {% endif %}
 
-{% if assignment.url %}<a href="{{ assignment.url }}" target="_blank">{{ assignment.title|e }}</a>{% else %}{{ assignment.title|e }}{% endif %}
+{% if assignment.url %}<a href="{{ assignment.url }}" target="_blank" rel="noopener">{{ assignment.title|e }}</a>{% else %}{{ assignment.title|e }}{% endif %}
 
 {% if session %}
     <form style="display: inline" action="{{ path_for('admin.assignments.edit', {id: assignment.id}) }}" method="get">

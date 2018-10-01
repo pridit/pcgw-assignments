@@ -20,7 +20,6 @@ $container['view'] = function ($c) {
 
     if ($c['session']->exists('user')) $view->getEnvironment()->addGlobal('session', $c['session']->get('user'));
 
-    $view->getEnvironment()->addGlobal('cookie', $c['cookie']->get() ?: null);
     $view->getEnvironment()->addGlobal('flash', $c['flash']->getMessages());
     $view->getEnvironment()->addGlobal('path', $c['config']['path']);
     $view->getEnvironment()->addGlobal('notice', $c['config']['notices']);
@@ -42,12 +41,8 @@ $container['view'] = function ($c) {
 |--------------------------------------------------------------------------
 */
 
-$container['cache'] = function ($c) {
-    return new App\Helpers\Cache($c['config']);
-};
-
 $container['cookie'] = function ($c) {
-    return new App\Helpers\Cookie($c['request'], $c['config']);
+    return new App\Helpers\Cookie($c['config']);
 };
 
 $container['dxdiag'] = function ($c) {
@@ -77,7 +72,7 @@ $container['igdb'] = function ($c) {
 };
 
 $container['mediawiki'] = function ($c) {
-    return new App\Services\MediaWiki($c['view']->getEnvironment()->getGlobals()['cookie'], $c['logger']);
+    return new App\Services\MediaWiki($c['cookie']->get($c['request']), $c['logger']);
 };
 
 /*
@@ -143,6 +138,17 @@ $container['phpErrorHandler'] = function ($c) {
 |--------------------------------------------------------------------------
 */
 
+$container['cronitor'] = function ($c) {
+    return new \Cronitor\Client(
+        $c['config']['api']['cronitor']['monitor'],
+        $c['config']['api']['cronitor']['authkey']
+    );
+};
+
+$container['crunz'] = function () {
+    return new Crunz\Schedule();
+};
+
 $container['csrf'] = function ($c) {
     $csrf = new Slim\Csrf\Guard;
 
@@ -153,6 +159,16 @@ $container['csrf'] = function ($c) {
 
 $container['flash'] = function () {
     return new Slim\Flash\Messages();
+};
+
+$container['memcached'] = function ($c) {
+    $memcached = new \Memcached;
+    $memcached->addServer(
+        $c['config']['cache']['memcached']['ip'],
+        $c['config']['cache']['memcached']['port']
+    );
+    
+    return $memcached;
 };
 
 $container['pheanstalk'] = function () {

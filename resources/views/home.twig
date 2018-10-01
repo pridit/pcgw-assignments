@@ -94,7 +94,13 @@
                             {{ (game.release_dates.date / 1000)|date('F d') }}
                         </td>
                         <td>
-                            {{ game.name }}
+                            {% if game.is_article %}
+                                <a href="{{ path.pcgw.article ~ (game.name)|replace({' ': "_"}) }}" target="_blank" rel="noopener">
+                                    {{ game.name }}
+                                </a>
+                            {% else %}
+                                {{ game.name }}
+                            {% endif %}
                         </td>
                         <td>
                             {% for developer in game.developers %}
@@ -113,7 +119,7 @@
 
         <div class="bar bar-footer text-center">
             <span class="title-addendum">
-                Game information was freely provided by <a href="https://www.igdb.com/" target="_blank">IGDB.com</a>
+                Game information was freely provided by <a href="https://www.igdb.com/" target="_blank" rel="noopener">IGDB.com</a>
             </span>
         </div>
     {% endif %}

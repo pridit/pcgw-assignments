@@ -15,7 +15,7 @@ class HomeController extends BaseController
     {
         return $this->view->render($response, 'home.twig', [
             'assignments' => Assignment::available()->get(),
-            'upcoming' => $this->cache->get('IGDB')
+            'upcoming' => $this->memcached->get('IGDB')
         ]);
     }
 }

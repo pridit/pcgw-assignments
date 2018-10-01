@@ -17,7 +17,7 @@ class IGDB
      * @param  boolean $companies
      * @return boolean
      */
-    private function request($url, $opts = null, $companies = false)
+    protected function request($url, $opts = null, $companies = false)
     {
         $url = $this->config->get('api.igdb.endpoint') . $url;
 
@@ -90,7 +90,7 @@ class IGDB
             return $item1->release_dates->date > $item2->release_dates->date;
         });
 
-        return $result;
+        return collect($result);
     }
 
     /**

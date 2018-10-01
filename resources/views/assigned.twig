@@ -32,7 +32,7 @@
                                 {% include 'components/assignment/report.twig' %}
                             </td>
                             <td>
-                                {% if assignment.url %}<a href="{{ assignment.url }}" target="_blank">{{ assignment.title|e }}</a>{% else %}{{ assignment.title }}{% endif %}
+                                {% if assignment.url %}<a href="{{ assignment.url }}" target="_blank" rel="noopener">{{ assignment.title|e }}</a>{% else %}{{ assignment.title }}{% endif %}
                             </td>
                             <td>
                                 <a href="{{ path.pcgw.user.wiki ~ assignee.name|e }}">{{ assignee.name|e }}</a>

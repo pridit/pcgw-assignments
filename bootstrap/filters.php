@@ -17,7 +17,7 @@ $mediawiki = function ($request, $response, $next) {
         return $next($request, $response);
     }
 
-    $this->logger->warning('Unauthenticated with MediaWiki', $this->cookie->get()->toArray());
+    $this->logger->warning('Unauthenticated with MediaWiki', $this->cookie->get($request)->toArray());
 
     $this->flash->addMessage('mediawiki', true);
 

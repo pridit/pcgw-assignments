@@ -1,24 +1,21 @@
 <?php
 
-use App\Helpers\Cache;
-use App\Services\IGDB;
+require_once dirname(__DIR__) . '/bootstrap.php';
 
-use Crunz\Schedule;
+$igdb = $container->igdb;
+$config = $container->config;
+$cronitor = $container->cronitor;
+$mediawiki = $container->mediawiki;
 
-$dotenv = new Dotenv\Dotenv(__DIR__ . '/../../');
-$dotenv->load();
-
-$config = new \Noodlehaus\Config(dirname(__DIR__) . '/../config');
-
-$schedule = new Schedule();
-
-$schedule->run(function () use ($config) {
-    $igdb = new IGDB($config);
-    $cache = new Cache($config);
-    $cronitor = new \Cronitor\Client($config->get('api.cronitor.monitor'), $config->get('api.cronitor.authkey'));
-
+$container->crunz->run(function () use ($igdb, $config, $cronitor, $mediawiki) {
+    $memcached = new \Memcached;
+    $memcached->addServer(
+        $config->get('cache.memcached.ip'),
+        $config->get('cache.memcached.port')
+    );
+    
     $cronitor->run();
-
+    
     $igdb = $igdb->gamesSearch([
         'fields'                                => implode($config->get('api.igdb.parameters.fields'), ','),
         'filter[first_release_date][gte]'       => date('Y-m-d'),
@@ -31,11 +28,17 @@ $schedule->run(function () use ($config) {
         'order'                                 => $config->get('api.igdb.parameters.order'),
         'limit'                                 => $config->get('api.igdb.parameters.limit')
     ]);
-
-    $cache->set('IGDB', $igdb);
-
+    
+    $igdb->map(function ($game) use ($mediawiki) {
+        $game->is_article = $mediawiki->isArticle($game->name);
+        
+        return $game;
+    });
+    
+    $memcached->set('IGDB', $igdb);
+    
     $cronitor->complete();
 })
 ->dailyAt('05:00');
 
-return $schedule;
+return $container->crunz;
