@@ -9,14 +9,11 @@ use SlimSession\Helper;
 
 class MediaWiki
 {
-    protected $client;
     protected $cookies;
     protected $logger;
 
     public function __construct($cookies, $logger)
     {
-        $this->client = new Client();
-        
         $this->cookies = $cookies;
         $this->logger = $logger;
     }
@@ -29,10 +26,12 @@ class MediaWiki
      */
     protected function request($query, $cookies = null)
     {
+        $client = new Client();
+        
         $query['action'] = 'query';
         $query['format'] = 'json';
         
-        $response = $this->client->request('GET', 'https://pcgamingwiki.com/w/api.php', [
+        $response = $client->request('GET', 'https://pcgamingwiki.com/w/api.php', [
             'query' => $query,
             'cookies' => $cookies ?: ''
         ]);
