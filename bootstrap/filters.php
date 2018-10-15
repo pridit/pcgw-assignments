@@ -20,6 +20,10 @@ $mediawiki = function ($request, $response, $next) {
     $this->logger->warning('Unauthenticated with MediaWiki', $this->cookie->get($request)->toArray());
 
     $this->flash->addMessage('mediawiki', true);
+    
+    if ($request->getHeader('HTTP_REFERER')) {
+        $path = $request->getHeader('HTTP_REFERER');
+    }
 
-    return $response->withHeader('Location', $request->getHeader('HTTP_REFERER'));
+    return $response->withHeader('Location', $path ?: $this->router->pathFor('home'));
 };
