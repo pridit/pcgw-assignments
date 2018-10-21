@@ -145,10 +145,6 @@ $container['cronitor'] = function ($c) {
     );
 };
 
-$container['crunz'] = function () {
-    return new Crunz\Schedule();
-};
-
 $container['csrf'] = function ($c) {
     $csrf = new Slim\Csrf\Guard;
 

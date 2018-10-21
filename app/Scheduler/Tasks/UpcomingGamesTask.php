@@ -7,12 +7,20 @@ $config = $container->config;
 $cronitor = $container->cronitor;
 $mediawiki = $container->mediawiki;
 
-$container->crunz->run(function () use ($igdb, $config, $cronitor, $mediawiki) {
+$schedule = new Schedule();
+
+$schedule->run(function () use ($igdb, $config, $cronitor, $mediawiki) {
     $memcached = new \Memcached;
     $memcached->addServer(
         $config->get('cache.memcached.ip'),
         $config->get('cache.memcached.port')
     );
+    
+    if ($memcached->get('IGDB')) {
+        exit;
+    }
+    
+    $memcached->set('IGDB', true);
     
     $cronitor->run();
     
@@ -29,16 +37,16 @@ $container->crunz->run(function () use ($igdb, $config, $cronitor, $mediawiki) {
         'limit'                                 => $config->get('api.igdb.parameters.limit')
     ]);
     
+    $cronitor->complete();
+    
     $igdb->map(function ($game) use ($mediawiki) {
         $game->is_article = $mediawiki->isArticle($game->name);
         
         return $game;
     });
     
-    $memcached->set('IGDB', $igdb);
-    
-    $cronitor->complete();
+    $memcached->set('IGDB', $igdb, 82800);
 })
 ->dailyAt('05:00');
 
-return $container->crunz;
+return $schedule;

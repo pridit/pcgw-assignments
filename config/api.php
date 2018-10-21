@@ -12,7 +12,7 @@ return [
                 'region'    => [1,8],
                 'hypes'     => 1,
                 'order'     => 'first_release_date,name',
-                'limit'     => 12
+                'limit'     => 10
             ]
         ],
 

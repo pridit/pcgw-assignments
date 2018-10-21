@@ -5,7 +5,9 @@ require_once dirname(__DIR__) . '/bootstrap.php';
 $mail = $container->mail;
 $pheanstalk = $container->pheanstalk;
 
-$container->crunz->run(function () use ($mail, $pheanstalk) {
+$schedule = new Schedule();
+
+$schedule->run(function () use ($mail, $pheanstalk) {
     while (true) {
         $job = $pheanstalk->reserveFromTube('email', 0);
 
@@ -20,4 +22,4 @@ $container->crunz->run(function () use ($mail, $pheanstalk) {
 })
 ->everyMinute();
 
-return $container->crunz;
+return $schedule;
