@@ -5,8 +5,6 @@ require_once dirname(__DIR__) . '/bootstrap.php';
 $mail = $container->mail;
 $pheanstalk = $container->pheanstalk;
 
-$schedule = new Schedule();
-
 $schedule->run(function () use ($mail, $pheanstalk) {
     while (true) {
         $job = $pheanstalk->reserveFromTube('email', 0);

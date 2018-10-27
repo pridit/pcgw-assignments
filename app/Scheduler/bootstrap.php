@@ -12,3 +12,5 @@ $container = new \Slim\Container();
 
 // Set up dependencies
 require __DIR__ . '/../../bootstrap/dependencies.php';
+
+$schedule = new Schedule();

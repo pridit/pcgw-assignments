@@ -71,7 +71,7 @@
         </div>
     {% endif %}
 
-    {% if upcoming is not empty %}
+    {% if upcoming is iterable %}
         <div class="bar bar-header">
             <span class="title">Upcoming Releases</span>
             <span class="title-addendum">Reference only; not guaranteed to become assignments. This list may not be 100% accurate.</span>

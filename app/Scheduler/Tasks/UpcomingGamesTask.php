@@ -7,8 +7,6 @@ $config = $container->config;
 $cronitor = $container->cronitor;
 $mediawiki = $container->mediawiki;
 
-$schedule = new Schedule();
-
 $schedule->run(function () use ($igdb, $config, $cronitor, $mediawiki) {
     $memcached = new \Memcached;
     $memcached->addServer(
@@ -45,7 +43,7 @@ $schedule->run(function () use ($igdb, $config, $cronitor, $mediawiki) {
         return $game;
     });
     
-    $memcached->set('IGDB', $igdb, 82800);
+    $memcached->replace('IGDB', $igdb, 82800);
 })
 ->dailyAt('05:00');
 
