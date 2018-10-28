@@ -37,11 +37,13 @@ $schedule->run(function () use ($igdb, $config, $cronitor, $mediawiki) {
     
     $cronitor->complete();
     
-    $igdb->map(function ($game) use ($mediawiki) {
-        $game->is_article = $mediawiki->isArticle($game->name);
-        
-        return $game;
-    });
+    if ($igdb) {
+        $igdb->map(function ($game) use ($mediawiki) {
+            $game->is_article = $mediawiki->isArticle($game->name);
+            
+            return $game;
+        });
+    }
     
     $memcached->replace('IGDB', $igdb, 82800);
 })

@@ -10,7 +10,7 @@ class IGDB
     }
 
     /**
-     * Perform a new request to the IGDB API
+     * Perform a new request to the IGDB API.
      *
      * @param  string  $url
      * @param  array   $opts
@@ -57,7 +57,7 @@ class IGDB
     }
 
     /**
-     * Perform a games search as the request and curate the result set
+     * Perform a games search as the request and curate the result set.
      *
      * @param  array $opts
      * @return array
@@ -65,7 +65,34 @@ class IGDB
     public function gamesSearch($opts)
     {
         $result = self::request('games/', $opts);
+        
+        if ($result) {
+            $filtered = $this->filter($result);
 
+            return collect($filtered);
+        }
+        
+        return false;
+    }
+
+    /**
+     * Perform a company search as the request.
+     *
+     * @param  integer $id
+     * @return array
+     */
+    public function companySearch($id)
+    {
+        return self::request('companies/' . $id, ['fields' => 'name']);
+    }
+    
+    /**
+     * Filter given result set.
+     *
+     * @param  array $result
+     * @return array
+     */
+    protected function filter($result) {
         foreach ($result as $gameKey => $game) {
             foreach ($game->release_dates as $release) {
                 if ($release->platform == $this->config->get('api.igdb.parameters.platform')) $result[$gameKey]->release_dates = $release;
@@ -89,18 +116,7 @@ class IGDB
         uasort($result, function ($item1, $item2) {
             return $item1->release_dates->date > $item2->release_dates->date;
         });
-
-        return collect($result);
-    }
-
-    /**
-     * Perform a company search as the request
-     *
-     * @param  integer $id
-     * @return array
-     */
-    public function companySearch($id)
-    {
-        return self::request('companies/' . $id, ['fields' => 'name']);
+        
+        return $result;
     }
 }
