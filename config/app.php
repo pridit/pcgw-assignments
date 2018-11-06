@@ -8,7 +8,7 @@ return [
 
         'assignments' => [
             'web'       => 5,
-            'admin'     => 50
+            'admin'     => 100
         ],
 
         'discussions' => [
