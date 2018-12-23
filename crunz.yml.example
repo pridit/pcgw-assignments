@@ -2,9 +2,9 @@
 
 # This option defines where the task files and
 # directories reside.
-# The path is relative to the project's root directory,
-# where the Crunz is installed (Trailing slashes will be ignored).
-source: app/Tasks
+# The path is relative to this config file.
+# Trailing slashes will be ignored.
+source: tasks
 
 # The suffix is meant to target the task files inside the ":source" directory.
 # Please note if you change this value, you need
@@ -22,7 +22,7 @@ log_errors: false
 
 # This is the absolute path to the errors' log file
 # You need to make sure you have the required permission to write to this file though.
-errors_log_file:
+errors_log_file: ~
 
 # By default the output is not logged as they are redirected to the
 # null output.
@@ -32,7 +32,11 @@ log_output: false
 # This is the absolute path to the global output log file
 # The events which have dedicated log files (defined with them), won't be
 # logged to this file though.
-output_log_file:
+output_log_file: ~
+
+# By default line breaks in logs aren't allowed.
+# Set the value to true to allow them.
+log_allow_line_breaks: false
 
 # This option determines whether the output should be emailed or not.
 email_output: false
@@ -41,7 +45,6 @@ email_output: false
 email_errors: false
 
 # Global Swift Mailer settings
-#
 mailer:
     # Possible values: smtp, mail, and sendmail
     transport: smtp
@@ -51,10 +54,9 @@ mailer:
 
 
 # SMTP settings
-#
 smtp:
-    host:
-    port:
-    username:
-    password:
-    encryption:
+    host: ~
+    port: ~
+    username: ~
+    password: ~
+    encryption: ~
