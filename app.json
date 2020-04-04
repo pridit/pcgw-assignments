@@ -1,0 +1,50 @@
+{
+    "name": "PCGW Assignments",
+    "description": "CMS platform for PC video game assignments",
+    "success_url": "/",
+    "addons": [
+        "jawsdb",
+        "mailgun",
+        "memcachedcloud",
+        "papertrail",
+        "scheduler"
+    ],
+    "buildpacks": [
+        {
+            "url": "heroku/nodejs"
+        },
+        {
+            "url": "heroku/php"
+        }
+    ],
+    "env": {
+        "APP_DEBUG": "false",
+        "APP_ENV": "production",
+        "CRONITOR_MONITOR": {
+            "description": "https://cronitor.io/",
+            "required": false
+        },
+        "CRONITOR_AUTHKEY": {
+            "description": "https://cronitor.io/",
+            "required": false
+        },
+        "DISCORD_ENDPOINT": {
+            "description": "Webhook URL for pushing notifications to a Discord channel.",
+            "required": false
+        },
+        "IGDB_KEY": {
+            "description": "https://api.igdb.com/",
+            "required": false
+        },
+        "IGDB_ENDPOINT": {
+            "description": "https://api.igdb.com/",
+            "value": "https://api-endpoint.igdb.com/",
+            "required": false
+        },
+        "NPM_CONFIG_PRODUCTION": "false",
+        "MAIL_ENABLED": "true"
+    },
+    "scripts": {
+        "postdeploy": "php novice migrate && php novice seed"
+    }
+}

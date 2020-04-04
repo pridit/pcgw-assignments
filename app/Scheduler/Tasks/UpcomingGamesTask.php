@@ -9,10 +9,15 @@ $mediawiki = $container->mediawiki;
 
 $schedule->run(function () use ($igdb, $config, $cronitor, $mediawiki) {
     $memcached = new \Memcached;
+    $memcached->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
     $memcached->addServer(
         $config->get('cache.memcached.ip'),
         $config->get('cache.memcached.port')
     );
+    
+    if (in_array(env('APP_ENV'), ['production', 'staging'])) {
+        $memcached->setSaslAuthData(env('MEMCACHEDCLOUD_USERNAME'), env('MEMCACHEDCLOUD_PASSWORD'));
+    }
     
     if ($memcached->get('IGDB')) {
         exit;

@@ -124,7 +124,7 @@ $container['phpErrorHandler'] = function ($c) {
     return function ($request, $response, $exception) use ($c) {
         $c['logger']->error($request->getUri(), [$exception]);
         
-        if (env('APP_ENV') == 'production') {
+        if (env('APP_ENV') == "production") {
             return $c['view']->render($response, 'templates/errors/500.twig')->withStatus(500);
         }
         

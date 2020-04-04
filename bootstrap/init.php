@@ -2,8 +2,10 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = new Dotenv\Dotenv(__DIR__ . '/../');
-$dotenv->load();
+if (env('APP_ENV') == "development") {
+    $dotenv = new Dotenv\Dotenv(__DIR__ . '/../');
+    $dotenv->load();
+}
 
 Illuminate\Pagination\Paginator::currentPageResolver(function () {
     return isset($_GET['page']) ? $_GET['page'] : 1;

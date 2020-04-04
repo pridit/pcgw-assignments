@@ -28,7 +28,7 @@ return [
     ],
 
     'mailer' => [
-        'enabled' => env('MAILER_ENABLED')
+        'enabled' => env('MAIL_ENABLED')
     ],
 
     'csrf' => [

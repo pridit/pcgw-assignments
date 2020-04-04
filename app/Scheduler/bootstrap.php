@@ -4,8 +4,10 @@ use Crunz\Schedule;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-$dotenv = new Dotenv\Dotenv(__DIR__ . '/../../');
-$dotenv->load();
+if (env('APP_ENV') == "development") {
+    $dotenv = new Dotenv\Dotenv(__DIR__ . '/../../');
+    $dotenv->load();
+}
 
 // Instantiate the application
 $container = new \Slim\Container();

@@ -1,0 +1,4 @@
+*.php linguist-detectable=true
+*.twig linguist-detectable=false
+*.css linguist-vendored
+*.js linguist-vendored
