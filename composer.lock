@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dfff4adcd43c33ad19557047d4b7aab0",
+    "content-hash": "c40352dfa61826d89400e620c2f40972",
     "packages": [
         {
             "name": "anlutro/curl",
@@ -4076,6 +4076,7 @@
     "prefer-lowest": false,
     "platform": {
         "ext-memcached": "*",
+        "ext-newrelic": "*",
         "php": "^7.4.0"
     },
     "platform-dev": [],

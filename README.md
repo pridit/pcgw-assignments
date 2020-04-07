@@ -1,6 +1,6 @@
 # PCGamingWiki Assignments
 
-[PCGW Assignments](https://assignments.pridit.co.uk) is a CMS platform for PC video game assignments, as well as handling allocation and facilitating the process of applying for assignments by end-users.
+**PCGW Assignments** is a CMS platform for PC video game assignments, as well as handling allocation and facilitating the process of applying for assignments by end-users.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 

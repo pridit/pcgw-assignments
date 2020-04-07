@@ -6,6 +6,7 @@
         "jawsdb",
         "mailgun",
         "memcachedcloud",
+        "newrelic",
         "papertrail",
         "scheduler"
     ],
